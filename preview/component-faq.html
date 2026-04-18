@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding: 16px; background: var(--bg-page); display:grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
+  .row { background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; padding: 12px 14px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
+  .row:hover { background: rgba(58,58,58,.5); }
+  .q { color:#fff; font-weight: 600; font-size: 13px; }
+  .chev { color: var(--fg-accent); transition: transform 200ms; }
+  .open .chev { transform: rotate(180deg); }
+  .open { display:block; }
+  .open .q { display:flex; justify-content:space-between; align-items:center; }
+  .answer { color: var(--fg-3); font-size: 12px; line-height: 1.6; margin: 10px 0 0; }
+</style></head><body>
+<div class="row">
+  <span class="q">What is GRC engineering?</span>
+  <span class="chev">▾</span>
+</div>
+<div class="row open" style="display:block">
+  <div class="q"><span>Do I need coding experience?</span><span class="chev" style="transform:rotate(180deg)">▾</span></div>
+  <p class="answer">No prior coding experience is required. Our labs start from the fundamentals and build up.</p>
+</div>
+</body></html>

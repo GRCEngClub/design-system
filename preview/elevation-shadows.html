@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding: 24px; background: var(--bg-page); display:flex; gap:24px; align-items:center; justify-content:center; }
+  .demo { display:flex; flex-direction:column; align-items:center; gap: 10px; }
+  .btn { padding: 12px 24px; border-radius: 8px; background: var(--grc-orange); color:#fff; font-weight:700; font-size:13px; border:0; }
+  .btn.glow { box-shadow: 0 8px 24px rgba(232,101,10,.25); }
+  .btn.glow-hover { box-shadow: 0 12px 32px rgba(232,101,10,.35); }
+  .card { width: 200px; height: 80px; background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; }
+  .card.hov { border-color: rgba(232,101,10,.5); }
+  .label { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); text-transform:uppercase; letter-spacing:.08em; }
+</style></head><body>
+<div class="demo"><button class="btn">no shadow</button><span class="label">none</span></div>
+<div class="demo"><button class="btn glow">CTA · default</button><span class="label">orange/25 glow</span></div>
+<div class="demo"><button class="btn glow-hover">CTA · hover</button><span class="label">orange/35 glow</span></div>
+<div class="demo"><div class="card"></div><span class="label">card · border only</span></div>
+<div class="demo"><div class="card hov"></div><span class="label">card · hover orange/50</span></div>
+</body></html>

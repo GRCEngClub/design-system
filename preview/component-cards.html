@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding: 16px; background: var(--bg-page); display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .card { background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; padding: 18px; transition: border-color 300ms ease; }
+  .card:hover { border-color: rgba(232,101,10,.5); }
+  .icon-well { width:40px; height:40px; border-radius:9999px; background: rgba(232,101,10,.10); color: var(--fg-accent); display:inline-flex; align-items:center; justify-content:center; margin-bottom: 10px; }
+  .icon-well svg { width: 20px; height: 20px; }
+  .card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; color: var(--fg-1); }
+  .card p { margin: 0; font-size: 12.5px; color: var(--fg-3); line-height: 1.5; }
+  .card.featured { background: linear-gradient(180deg, rgba(232,101,10,.10), transparent); border-color: var(--grc-orange); }
+</style></head><body>
+<div class="card">
+  <div class="icon-well"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 9.4 8 10 4.6-.6 8-5 8-10V6z"/></svg></div>
+  <h3>Default Card</h3>
+  <p>bg-brand-gray · rounded-xl · border-brand-gray-light · hover orange/50</p>
+</div>
+<div class="card featured">
+  <div class="icon-well"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+  <h3>Featured / Highlighted</h3>
+  <p>orange/10 → transparent gradient · border-brand-orange · for "Most Popular" / "Recommended"</p>
+</div>
+</body></html>

@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding: 16px; background: var(--bg-page); display:flex; gap: 12px; align-items:center; flex-wrap:wrap; }
+  .well { width:48px; height:48px; border-radius:9999px; background: rgba(232,101,10,.10); color: var(--fg-accent); display:inline-flex; align-items:center; justify-content:center; }
+  .well.sm { width:36px; height:36px; }
+  .well.lg { width:60px; height:60px; }
+  .well svg { width:50%; height:50%; }
+  .label { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); }
+  .group { display:flex; flex-direction:column; align-items:center; gap:6px; }
+</style></head><body>
+<script src="https://unpkg.com/lucide@latest"></script>
+<div class="group"><div class="well sm"><i data-lucide="mic"></i></div><span class="label">36px</span></div>
+<div class="group"><div class="well"><i data-lucide="shield"></i></div><span class="label">48px</span></div>
+<div class="group"><div class="well lg"><i data-lucide="graduation-cap"></i></div><span class="label">60px</span></div>
+<div class="group"><div class="well"><i data-lucide="zap"></i></div><span class="label">zap</span></div>
+<div class="group"><div class="well"><i data-lucide="cloud"></i></div><span class="label">cloud</span></div>
+<div class="group"><div class="well"><i data-lucide="users"></i></div><span class="label">users</span></div>
+<div class="group"><div class="well"><i data-lucide="flask-conical"></i></div><span class="label">flask</span></div>
+<div class="group"><div class="well"><i data-lucide="book-open"></i></div><span class="label">book</span></div>
+<script>lucide.createIcons();</script>
+</body></html>

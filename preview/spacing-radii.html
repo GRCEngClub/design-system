@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding: 18px; background: var(--bg-page); display:flex; gap:16px; align-items:flex-start; }
+  .col { flex: 1; }
+  .row { display:flex; align-items:center; gap: 12px; padding: 6px 0; }
+  .swatch { background: var(--grc-orange); flex-shrink:0; }
+  .label { font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); }
+  .name { color: #fff; font-size: 12px; font-weight: 700; min-width: 60px; }
+  .heading { color:var(--fg-accent); font-family:var(--font-mono); text-transform:uppercase; font-size:10px; letter-spacing:.1em; margin-bottom: 8px; }
+</style></head><body>
+<div class="col">
+  <div class="heading">Spacing Scale (px)</div>
+  <div class="row"><span class="name">space-2</span><div class="swatch" style="width:8px; height:14px"></div><span class="label">8</span></div>
+  <div class="row"><span class="name">space-4</span><div class="swatch" style="width:16px; height:14px"></div><span class="label">16</span></div>
+  <div class="row"><span class="name">space-6</span><div class="swatch" style="width:24px; height:14px"></div><span class="label">24 · card padding</span></div>
+  <div class="row"><span class="name">space-8</span><div class="swatch" style="width:32px; height:14px"></div><span class="label">32</span></div>
+  <div class="row"><span class="name">space-12</span><div class="swatch" style="width:48px; height:14px"></div><span class="label">48</span></div>
+  <div class="row"><span class="name">space-20</span><div class="swatch" style="width:80px; height:14px"></div><span class="label">80 · py-20 section</span></div>
+</div>
+<div class="col">
+  <div class="heading">Radii</div>
+  <div class="row"><span class="name">sm 6</span><div style="width:40px; height:24px; background:var(--grc-orange); border-radius:6px"></div></div>
+  <div class="row"><span class="name">md 8</span><div style="width:40px; height:24px; background:var(--grc-orange); border-radius:8px"></div><span class="label">buttons</span></div>
+  <div class="row"><span class="name">lg 12</span><div style="width:40px; height:24px; background:var(--grc-orange); border-radius:12px"></div><span class="label">cards</span></div>
+  <div class="row"><span class="name">pill</span><div style="width:40px; height:24px; background:var(--grc-orange); border-radius:9999px"></div><span class="label">chips, icon wells</span></div>
+</div>
+</body></html>

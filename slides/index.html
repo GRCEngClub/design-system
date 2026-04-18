@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>GRC Engineering Club — Deck Templates</title>
+  <link rel="stylesheet" href="../colors_and_type.css" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="./deck-stage.js"></script>
+  <style>
+    html, body { margin: 0; background: #000; font-family: 'Inter', system-ui, sans-serif; color: #F5F5F5; }
+    deck-stage section { background: #0D0D0D; }
+  </style>
+</head>
+<body>
+  <deck-stage width="1920" height="1080">
+    <section id="s1"></section>
+    <section id="s2"></section>
+    <section id="s3"></section>
+    <section id="s4"></section>
+    <section id="s5"></section>
+    <section id="s6"></section>
+    <section id="s7"></section>
+    <section id="s8"></section>
+    <section id="s9"></section>
+    <section id="s10"></section>
+    <section id="s11"></section>
+    <section id="s12"></section>
+  </deck-stage>
+
+  <script type="text/babel" src="./Slides.jsx"></script>
+  <script type="text/babel">
+    const mounts = [
+      ['s1',  TitleSlide],
+      ['s2',  SectionSlide],
+      ['s3',  ProblemSlide],
+      ['s4',  ApproachSlide],
+      ['s5',  StatSlide],
+      ['s6',  QuoteSlide],
+      ['s7',  CertificationSlide],
+      ['s8',  RoadmapSlide],
+      ['s9',  CodeSlide],
+      ['s10', ComparisonSlide],
+      ['s11', PillarsSlide],
+      ['s12', CloserSlide],
+    ];
+    for (const [id, Comp] of mounts) {
+      const el = document.getElementById(id);
+      if (el) ReactDOM.createRoot(el).render(<Comp />);
+    }
+    // Re-run lucide icons after mount
+    setTimeout(() => { if (window.lucide) window.lucide.createIcons(); }, 300);
+    // Re-run on slide change too
+    document.querySelector('deck-stage').addEventListener('slidechange', () => {
+      setTimeout(() => { if (window.lucide) window.lucide.createIcons(); }, 100);
+    });
+  </script>
+</body>
+</html>

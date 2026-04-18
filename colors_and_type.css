@@ -1,0 +1,208 @@
+/* =========================================================================
+   GRC Engineering Club — Colors & Type Tokens
+   Source: grcengclub.com codebase (src/index.css @theme block)
+   Font: Inter (Google Fonts) — weights 400/500/600/700/800/900
+   ========================================================================= */
+
+/* Local Inter (vendored in ./fonts/). Use these for offline / deck exports.
+   Falls through to Google Fonts @import below if the local path can't be resolved. */
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('./fonts/inter-400.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('./fonts/inter-500.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('./fonts/inter-600.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('./fonts/inter-700.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 800; font-display: swap; src: url('./fonts/inter-800.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 900; font-display: swap; src: url('./fonts/inter-900.woff2') format('woff2'); }
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  /* ---------- Brand colors ---------- */
+  --grc-orange:        #E8650A;   /* primary brand */
+  --grc-orange-light:  #FF8533;   /* hover, accents */
+  --grc-orange-dark:   #C45200;   /* pressed, deeper accent */
+
+  /* Neutral surface scale (dark-first) */
+  --grc-dark:          #0D0D0D;   /* page background */
+  --grc-dark-alt:      #1A1A1A;   /* alternating section bg */
+  --grc-gray:          #2A2A2A;   /* card surface */
+  --grc-gray-light:    #3A3A3A;   /* card border, dividers */
+
+  /* Foreground / text */
+  --grc-text:          #F5F5F5;   /* default text on dark */
+  --grc-text-muted:    #A0A0A0;   /* secondary / body */
+  --grc-white:         #FFFFFF;   /* high-emphasis text, button labels */
+
+  /* Semantic foreground tokens */
+  --fg-1: var(--grc-white);
+  --fg-2: var(--grc-text);
+  --fg-3: var(--grc-text-muted);
+  --fg-accent: var(--grc-orange);
+
+  /* Semantic surface tokens */
+  --bg-page:    var(--grc-dark);
+  --bg-section: var(--grc-dark-alt);
+  --bg-card:    var(--grc-gray);
+  --bg-tint:    color-mix(in oklch, var(--grc-orange) 10%, transparent);
+
+  /* Borders */
+  --border-default: var(--grc-gray-light);
+  --border-accent:  var(--grc-orange);
+  --border-subtle:  color-mix(in oklch, var(--grc-gray-light) 50%, transparent);
+
+  /* Radii — codebase uses rounded-lg / rounded-xl / rounded-full */
+  --radius-sm: 6px;
+  --radius-md: 8px;    /* buttons (rounded-lg) */
+  --radius-lg: 12px;   /* cards (rounded-xl) */
+  --radius-pill: 9999px;
+
+  /* Shadows — soft black + warm orange glow on CTAs */
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-cta:  0 8px 24px rgba(232, 101, 10, 0.25);
+  --shadow-cta-hover: 0 12px 32px rgba(232, 101, 10, 0.35);
+
+  /* Spacing scale — tailwind-aligned */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ---------- Typography ---------- */
+  --font-sans: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Type scale (px @ 16px base) */
+  --text-xs:   12px;
+  --text-sm:   14px;
+  --text-base: 16px;
+  --text-lg:   18px;
+  --text-xl:   20px;
+  --text-2xl:  24px;
+  --text-3xl:  30px;
+  --text-4xl:  36px;
+  --text-5xl:  48px;
+  --text-6xl:  60px;
+  --text-7xl:  72px;
+
+  /* Weights — codebase favours 700/800/900 for display, 500/600 for nav/labels */
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold: 600;
+  --weight-bold:    700;
+  --weight-extrabold: 800;
+  --weight-black:   900;
+
+  /* Line heights */
+  --leading-tight:  1.1;
+  --leading-snug:   1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  /* Tracking */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+}
+
+/* =========================================================================
+   Semantic element styles — drop these onto h1/h2/p/etc for brand-default
+   ========================================================================= */
+
+html, body {
+  background: var(--bg-page);
+  color: var(--fg-2);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.h-display,
+h1.grc {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-black);          /* font-black */
+  font-size: clamp(40px, 6vw, var(--text-7xl));
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+}
+
+.h1, h1 {
+  font-weight: var(--weight-black);
+  font-size: clamp(32px, 4.5vw, var(--text-6xl));
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+}
+
+.h2, h2 {
+  font-weight: var(--weight-extrabold);      /* font-extrabold */
+  font-size: clamp(28px, 3.5vw, var(--text-5xl));
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+}
+
+.h3, h3 {
+  font-weight: var(--weight-bold);
+  font-size: var(--text-xl);
+  line-height: var(--leading-snug);
+  color: var(--fg-1);
+}
+
+.h4, h4 {
+  font-weight: var(--weight-bold);
+  font-size: var(--text-lg);
+  color: var(--fg-1);
+}
+
+.eyebrow {
+  /* uppercase orange micro-label seen on Academy hero, footers, post chips */
+  font-weight: var(--weight-bold);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--fg-accent);
+}
+
+.lede,
+p.grc-lede {
+  font-size: clamp(18px, 1.75vw, var(--text-2xl));
+  line-height: var(--leading-relaxed);
+  color: var(--fg-3);
+}
+
+p, .body {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--fg-3);
+}
+
+small, .small {
+  font-size: var(--text-sm);
+  color: var(--fg-3);
+}
+
+.code, code, kbd, pre {
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+  background: color-mix(in oklch, var(--grc-orange) 10%, transparent);
+  color: var(--fg-accent);
+  padding: 0.1em 0.4em;
+  border-radius: var(--radius-sm);
+}
+
+a.brand-link {
+  color: var(--fg-accent);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+a.brand-link:hover { color: var(--grc-orange-light); }
