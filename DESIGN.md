@@ -164,7 +164,7 @@ Full `@font-face` + semantic CSS block lives in [`colors_and_type.css`](colors_a
 
 ## 3. Iconography
 
-- **Lucide line icons only**, default stroke width, loaded via `<script src="https://unpkg.com/lucide@latest">` + `lucide.createIcons()` (or the React wrapper pattern below).
+- **Lucide line icons only**, default stroke width, loaded via `<script src="https://unpkg.com/lucide@1.28.0">` + `lucide.createIcons()` (or the React wrapper pattern below). Pin an explicit version — `@latest` is a mutable tag, so a copy-pasted `<script>` tag can silently start executing different code later. Check [npmjs.com/package/lucide](https://www.npmjs.com/package/lucide) for the current version before adopting. For production use, prefer vendoring the file locally or adding a `<script>` `integrity` (SRI) hash.
 - **No emoji, ever**, anywhere in product UI, marketing copy, or slides.
 - When an icon needs emphasis, wrap it in a circular "well": `border-radius: 9999px`, background `rgba(232,101,10,.10)`, color `--fg-accent` (orange). Standard well sizes: 36px (sm), 48px (default), 60px (lg) — icon glyph sized to ~50% of the well.
 - Common icon vocabulary used across the product: `shield`, `zap`, `cloud`, `users`, `flask-conical`, `book-open`, `graduation-cap`, `mic`, `layout-dashboard`, `clipboard-check`, `check-circle-2`, `flame`, `award`, `message-circle`, `arrow-right`, `play`, `clock`, `hammer`, `file-check-2`, `git-branch`.
@@ -173,10 +173,12 @@ React wrapper pattern:
 
 ```jsx
 function Icon({ name, size = 20, ...rest }) {
-  React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
+  React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); }, [name]);
   return <i data-lucide={name} style={{ width: size, height: size, display: 'inline-flex' }} {...rest}></i>;
 }
 ```
+
+The `[name]` dependency array keeps `createIcons()` (a DOM-scanning pass) from rerunning on every render — it only reruns when the icon actually changes. For larger React apps, prefer the official [`lucide-react`](https://lucide.dev/guide/packages/lucide-react) package over this DOM-replacement approach.
 
 ---
 
