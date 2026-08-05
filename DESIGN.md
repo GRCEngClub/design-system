@@ -8,7 +8,7 @@
 
 ## 1. Brand identity in one paragraph
 
-GRC Engineering Club is **builder-energy, not vendor-energy**. One accent color (orange), dark-mode-only, Inter in heavy weights for display type, Lucide line icons, zero emoji, zero gradients beyond a single orange-to-orange-light ramp. The voice is direct, imperative, second-person: *"Stop scrolling, start engineering."* *"From checkbox GRC to engineered systems."*
+GRC Engineering Club is **builder-energy, not vendor-energy**. One accent color (orange), dark-mode-only, Inter in heavy weights for display type, Lucide line icons, zero emoji. Gradients are restricted to approved single-hue exceptions: the orange-to-orange-light ramp (progress bars, avatar fills), its transparent fade (`.card.featured`), and the orange/gray conic-gradient used for donut progress — never a second hue, never decorative. The voice is direct, imperative, second-person: *"Stop scrolling, start engineering."* *"From checkbox GRC to engineered systems."*
 
 ### Core rules — do not violate
 
@@ -28,38 +28,40 @@ Drop this CSS in as-is, or read off the values below if working outside CSS (Rea
 ### 2.1 Color
 
 ```css
-/* Brand */
---grc-orange:        #E8650A;   /* primary brand — CTAs, links, eyebrows, icons */
---grc-orange-light:  #FF8533;   /* hover state, accents */
---grc-orange-dark:   #C45200;   /* pressed state, deeper accent */
+:root {
+  /* Brand */
+  --grc-orange:        #E8650A;   /* primary brand — CTAs, links, eyebrows, icons */
+  --grc-orange-light:  #FF8533;   /* hover state, accents */
+  --grc-orange-dark:   #C45200;   /* pressed state, deeper accent */
 
-/* Neutral surface scale (dark-first) */
---grc-dark:          #0D0D0D;   /* page background */
---grc-dark-alt:      #1A1A1A;   /* alternating section bg */
---grc-gray:          #2A2A2A;   /* card surface */
---grc-gray-light:    #3A3A3A;   /* card border, dividers */
+  /* Neutral surface scale (dark-first) */
+  --grc-dark:          #0D0D0D;   /* page background */
+  --grc-dark-alt:      #1A1A1A;   /* alternating section bg */
+  --grc-gray:          #2A2A2A;   /* card surface */
+  --grc-gray-light:    #3A3A3A;   /* card border, dividers */
 
-/* Foreground / text */
---grc-text:          #F5F5F5;   /* default text on dark */
---grc-text-muted:    #A0A0A0;   /* secondary / body copy */
---grc-white:         #FFFFFF;   /* high-emphasis text, button labels */
+  /* Foreground / text */
+  --grc-text:          #F5F5F5;   /* default text on dark */
+  --grc-text-muted:    #A0A0A0;   /* secondary / body copy */
+  --grc-white:         #FFFFFF;   /* high-emphasis text, button labels */
 
-/* Semantic foreground tokens */
---fg-1: var(--grc-white);       /* hi-emphasis headings */
---fg-2: var(--grc-text);        /* body text */
---fg-3: var(--grc-text-muted);  /* muted / secondary text */
---fg-accent: var(--grc-orange); /* links, eyebrows, accents */
+  /* Semantic foreground tokens */
+  --fg-1: var(--grc-white);       /* hi-emphasis headings */
+  --fg-2: var(--grc-text);        /* body text */
+  --fg-3: var(--grc-text-muted);  /* muted / secondary text */
+  --fg-accent: var(--grc-orange); /* links, eyebrows, accents */
 
-/* Semantic surface tokens */
---bg-page:    var(--grc-dark);
---bg-section: var(--grc-dark-alt);
---bg-card:    var(--grc-gray);
---bg-tint:    color-mix(in oklch, var(--grc-orange) 10%, transparent);
+  /* Semantic surface tokens */
+  --bg-page:    var(--grc-dark);
+  --bg-section: var(--grc-dark-alt);
+  --bg-card:    var(--grc-gray);
+  --bg-tint:    color-mix(in oklch, var(--grc-orange) 10%, transparent);
 
-/* Borders */
---border-default: var(--grc-gray-light);
---border-accent:  var(--grc-orange);
---border-subtle:  color-mix(in oklch, var(--grc-gray-light) 50%, transparent);
+  /* Borders */
+  --border-default: var(--grc-gray-light);
+  --border-accent:  var(--grc-orange);
+  --border-subtle:  color-mix(in oklch, var(--grc-gray-light) 50%, transparent);
+}
 ```
 
 Common derived opacities used throughout the UI kits (not raw tokens, but consistent conventions):
@@ -72,10 +74,12 @@ Common derived opacities used throughout the UI kits (not raw tokens, but consis
 ### 2.2 Radii
 
 ```css
---radius-sm:   6px;     /* small chips, pill labels */
---radius-md:   8px;     /* buttons (rounded-lg) */
---radius-lg:   12px;    /* cards (rounded-xl) */
---radius-pill: 9999px;  /* chips, icon wells, avatars, progress bars */
+:root {
+  --radius-sm:   6px;     /* small chips, pill labels */
+  --radius-md:   8px;     /* buttons (rounded-lg) */
+  --radius-lg:   12px;    /* cards (rounded-xl) */
+  --radius-pill: 9999px;  /* chips, icon wells, avatars, progress bars */
+}
 ```
 
 ### 2.3 Shadows
@@ -83,26 +87,30 @@ Common derived opacities used throughout the UI kits (not raw tokens, but consis
 Soft black for elevation, warm orange glow reserved for primary CTAs only. **Cards never get drop shadows** — only a border-color change on hover.
 
 ```css
---shadow-card:       0 4px 12px rgba(0, 0, 0, 0.3);
---shadow-cta:        0 8px 24px rgba(232, 101, 10, 0.25);
---shadow-cta-hover:  0 12px 32px rgba(232, 101, 10, 0.35);
+:root {
+  --shadow-card:       0 4px 12px rgba(0, 0, 0, 0.3);  /* defined in tokens but NOT applied to cards — reserved for other elevated surfaces (e.g. modals, dropdowns) if needed; cards use border-color only */
+  --shadow-cta:        0 8px 24px rgba(232, 101, 10, 0.25);
+  --shadow-cta-hover:  0 12px 32px rgba(232, 101, 10, 0.35);
+}
 ```
 
 ### 2.4 Spacing scale (Tailwind-aligned, px)
 
 ```css
---space-1: 4px;
---space-2: 8px;
---space-3: 12px;
---space-4: 16px;
---space-5: 20px;
---space-6: 24px;    /* card padding */
---space-8: 32px;
---space-10: 40px;
---space-12: 48px;
---space-16: 64px;
---space-20: 80px;   /* section vertical padding (py-20) */
---space-24: 96px;
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;    /* card padding */
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;   /* section vertical padding (py-20) */
+  --space-24: 96px;
+}
 ```
 
 ### 2.5 Typography
@@ -114,17 +122,19 @@ Inter is vendored locally as `.woff2` (weights 400/500/600/700/800/900) — no G
 **Type scale (px @ 16px base):**
 
 ```css
---text-xs: 12px;
---text-sm: 14px;
---text-base: 16px;
---text-lg: 18px;
---text-xl: 20px;
---text-2xl: 24px;
---text-3xl: 30px;
---text-4xl: 36px;
---text-5xl: 48px;
---text-6xl: 60px;
---text-7xl: 72px;
+:root {
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 30px;
+  --text-4xl: 36px;
+  --text-5xl: 48px;
+  --text-6xl: 60px;
+  --text-7xl: 72px;
+}
 ```
 
 **Weights:** 400 regular, 500 medium, 600 semibold, 700 bold, 800 extrabold, 900 black. Display type (h1, hero headlines) favors 900 (black); h2 favors 800 (extrabold); h3/h4 and nav/labels favor 700/600.
@@ -176,15 +186,15 @@ All components below use the raw hex/rgba values from §2.1 directly (as the pro
 
 ### 4.1 Buttons
 
-Two variants, three sizes. Primary is always solid orange with a glow shadow; secondary is an orange outline that fills solid on hover.
+Three variants (primary, secondary, ghost), three sizes. Primary is always solid orange with a glow shadow; secondary is an orange outline that fills solid on hover; ghost is a low-emphasis neutral fill (see below).
 
 ```css
 .btn            { display:inline-flex; align-items:center; justify-content:center; gap:6px;
                    font-weight:700; border-radius:8px; cursor:pointer; transition: all 200ms ease; border:0; }
-.btn.primary    { background:#E8650A; color:#fff; box-shadow: 0 8px 24px rgba(232,101,10,.25); }
+.btn.primary    { background:#E8650A; color:#0D0D0D; box-shadow: 0 8px 24px rgba(232,101,10,.25); }
 .btn.primary:hover   { background:#FF8533; box-shadow: 0 12px 32px rgba(232,101,10,.35); }
 .btn.secondary  { background:transparent; color:#E8650A; border:2px solid #E8650A; }
-.btn.secondary:hover { background:#E8650A; color:#fff; }
+.btn.secondary:hover { background:#E8650A; color:#0D0D0D; }
 
 .btn.lg { padding:14px 28px; font-size:16px; }
 .btn.md { padding:12px 24px; font-size:15px; }  /* default */
@@ -316,7 +326,7 @@ These aren't just references — they're existing implementations to copy from o
 
 Recreates grcengclub.com: Home, Academy, Member Stories, Join, FAQ, as a single click-through React prototype.
 
-- **Shared components:** `ReviewBanner` (rotating testimonial strip, solid `#f97316` background), `Navbar`, `CTAButton`, `SectionHeading` (centered eyebrow + h2 + subtitle), `ContentCard`, `StoryCard`, `Footer`, `Icon`.
+- **Shared components:** `ReviewBanner` (rotating testimonial strip, solid `#f97316` background — a documented one-off exception, not the `--grc-orange` token; treat as a bug to fix upstream rather than a pattern to copy), `Navbar`, `CTAButton`, `SectionHeading` (centered eyebrow + h2 + subtitle), `ContentCard`, `StoryCard`, `Footer`, `Icon`.
 - **Conventions:** two alternating background tones per section (`#0D0D0D` / `#1A1A1A`); cards `#2A2A2A` bg / `#3A3A3A` border, hover → `rgba(232,101,10,.5)` border; all icons Lucide, wrapped in orange `bg-orange/10` wells when emphasized; CTAs always solid orange with the glow shadow; display headings Inter Black 900, tracking-tight.
 
 ### 8.2 Cert platform / Academy (`ui_kits/certplatform/`)
@@ -347,7 +357,7 @@ Shared slide primitives: `slideRoot()` (72px/96px padding container), `Eyebrow`,
 
 ## 10. Full repo map (for deeper reference)
 
-```
+```text
 grcengclub-design-system/
 ├── DESIGN.md                    ← this file — portable, self-contained system reference
 ├── README.md                    ← brand bible (source for this file) + leadership roster
