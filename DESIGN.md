@@ -1,6 +1,6 @@
 # GRC Engineering Club — Design System
 
-> **Portable reference.** This single file contains everything an LLM (or a human) needs to design on-brand for the GRC Engineering Club — brand rules, tokens, typography, components, iconography, and content conventions — without needing to browse the rest of this repo. Paste it into a project's context, drop it in as a Claude Code skill, or hand it to any other LLM as a system/reference document.
+> **Portable reference.** This single file contains everything an LLM (or a human) needs to design on-brand for the GRC Engineering Club — brand rules, tokens, typography, components, iconography, and content conventions — without needing to browse the rest of this repo. Paste it into a project's context, or hand it to any other LLM as a system/reference document. (Note: this repo does not currently ship a `SKILL.md` manifest, so dropping this file into `.claude/skills/` will not auto-load it as a Claude Code skill — see [`PUBLISHING.md`](PUBLISHING.md) for that setup.)
 >
 > Source repo: this design system backs [grcengclub.com](https://grcengclub.com), the [claude-grc-engineering](https://github.com/GRCEngClub/claude-grc-engineering) docs, Academy surfaces, slide decks, and merch.
 
@@ -91,13 +91,18 @@ Soft black for elevation, warm orange glow reserved for primary CTAs only. **Car
 ### 2.4 Spacing scale (Tailwind-aligned, px)
 
 ```css
---space-1: 4px    --space-6:  24px  /* card padding */
---space-2: 8px    --space-8:  32px
---space-3: 12px   --space-10: 40px
---space-4: 16px   --space-12: 48px
---space-5: 20px   --space-16: 64px
-                   --space-20: 80px  /* section vertical padding (py-20) */
-                   --space-24: 96px
+--space-1: 4px;
+--space-2: 8px;
+--space-3: 12px;
+--space-4: 16px;
+--space-5: 20px;
+--space-6: 24px;    /* card padding */
+--space-8: 32px;
+--space-10: 40px;
+--space-12: 48px;
+--space-16: 64px;
+--space-20: 80px;   /* section vertical padding (py-20) */
+--space-24: 96px;
 ```
 
 ### 2.5 Typography
@@ -109,11 +114,17 @@ Inter is vendored locally as `.woff2` (weights 400/500/600/700/800/900) — no G
 **Type scale (px @ 16px base):**
 
 ```css
---text-xs: 12px   --text-2xl: 24px  --text-5xl: 48px
---text-sm: 14px   --text-3xl: 30px  --text-6xl: 60px
---text-base: 16px --text-4xl: 36px  --text-7xl: 72px
---text-lg: 18px
---text-xl: 20px
+--text-xs: 12px;
+--text-sm: 14px;
+--text-base: 16px;
+--text-lg: 18px;
+--text-xl: 20px;
+--text-2xl: 24px;
+--text-3xl: 30px;
+--text-4xl: 36px;
+--text-5xl: 48px;
+--text-6xl: 60px;
+--text-7xl: 72px;
 ```
 
 **Weights:** 400 regular, 500 medium, 600 semibold, 700 bold, 800 extrabold, 900 black. Display type (h1, hero headlines) favors 900 (black); h2 favors 800 (extrabold); h3/h4 and nav/labels favor 700/600.
