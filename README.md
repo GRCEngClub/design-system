@@ -10,6 +10,7 @@ One accent color, dark-mode-only, Inter heavy-weights for display, Lucide line i
 
 | Folder | What it is |
 |---|---|
+| [`DESIGN.md`](DESIGN.md) | **Single-file, portable version of this entire design system** — brand rules, tokens, typography, components, iconography, voice. Built for dropping into any LLM's context or codebase without needing the rest of this repo. |
 | [`colors_and_type.css`](colors_and_type.css) | Drop-in CSS variables (`--grc-orange`, `--grc-dark`, `--grc-gray`, `--fg-1`, …) and semantic type rules for `h1`, `h2`, `.eyebrow`, `.lede`. References local Inter. |
 | [`fonts/`](fonts) | Vendored Inter `woff2` files (weights 400, 500, 600, 700, 800, 900). No Google Fonts dependency. |
 | [`assets/`](assets) | Logo, orange brand mark, leadership headshots, merch product shots. Copy from here; do not recreate. |
