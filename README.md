@@ -17,6 +17,9 @@ One accent color, dark-mode-only, Inter heavy-weights for display, Lucide line i
 | [`slides/`](slides) | 12 brand-ready slide templates (Title, Section, Problem, Approach, Stat, Quote, Certification, Roadmap, Code, Comparison, Pillars, Closer). Built on `<deck-stage>` at 1920×1080. |
 | [`ui_kits/website/`](ui_kits/website) | Full marketing-site recreation (Home, Academy, Stories, Join, FAQ) as JSX components. |
 | [`ui_kits/certplatform/`](ui_kits/certplatform) | Academy cert-platform recreation (Dashboard, Course, Lesson player, Labs, Exam readiness). |
+| [`BRAND.md`](BRAND.md) | Brand bible — voice, palette, type, layout, iconography rules. |
+| [`SKILL.md`](SKILL.md) | Claude Code / Claude Agent SDK skill manifest for this repo. |
+| [`source_decks/`](source_decks) | Original Academy `.pptx` decks (reference content). |
 | [`PUBLISHING.md`](PUBLISHING.md) | How to install as a Claude Code skill and how to publish to the Club. |
 
 ---
