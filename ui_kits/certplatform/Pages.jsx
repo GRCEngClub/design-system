@@ -1,101 +1,81 @@
-/* Cert platform — Course outline, Lesson player, Lab, Exam screens */
+/* Cert platform — Course outline, Lesson player, Labs, Exam readiness (2026-11-01 system).
+   Brand-consistent proposals on the production Dashboard recipe; the kit's
+   Dashboard and NavBar are the 1:1 ports. */
 
 const CourseOutline = ({ go }) => {
   const chapters = [
-    { n: '01', title: 'Foundations', done: 5, total: 5, lessons: [
-      { n: 1, t: 'What Is GRC Engineering', dur: '18 min', done: true },
-      { n: 2, t: 'GRC Engineering Maturity Model', dur: '22 min', done: true },
-      { n: 3, t: 'Three Pillars of GRC Engineering', dur: '16 min', done: true },
-      { n: 4, t: 'Frameworks & Standards Landscape', dur: '24 min', done: true },
-      { n: 5, t: 'GRC Engineer Role & Career Path', dur: '20 min', done: true },
+    { n: 1, title: 'GRC engineering foundations', done: 5, total: 5, lessons: [
+      { n: 1, t: 'What is GRC engineering', dur: '18 min', state: 'done' },
+      { n: 2, t: 'The GRC engineering maturity model', dur: '22 min', state: 'done' },
+      { n: 3, t: 'Three pillars of GRC engineering', dur: '16 min', state: 'done' },
+      { n: 4, t: 'Frameworks and standards landscape', dur: '24 min', state: 'done' },
+      { n: 5, t: 'The GRC engineer role and career path', dur: '20 min', state: 'done' },
     ]},
-    { n: '02', title: 'Infrastructure as Code', done: 3, total: 5, lessons: [
-      { n: 1, t: 'Introduction to IaC', dur: '19 min', done: true },
-      { n: 2, t: 'Terraform Fundamentals', dur: '28 min', done: true },
-      { n: 3, t: 'IaC as Compliance Evidence', dur: '22 min', done: false, current: true },
-      { n: 4, t: 'State, Drift & Enforcement', dur: '20 min', done: false },
-      { n: 5, t: 'IaC Lab  - S3 Encrypted Vault', dur: '45 min lab', done: false },
+    { n: 2, title: 'Infrastructure as code', done: 3, total: 5, lessons: [
+      { n: 1, t: 'Introduction to IaC', dur: '19 min', state: 'done' },
+      { n: 2, t: 'Terraform fundamentals', dur: '28 min', state: 'done' },
+      { n: 3, t: 'IaC as compliance evidence', dur: '22 min', state: 'now' },
+      { n: 4, t: 'State, drift and enforcement', dur: '20 min', state: 'todo' },
+      { n: 5, t: 'IaC lab: S3 encrypted vault', dur: '45 min lab', state: 'todo' },
     ]},
-    { n: '03', title: 'Policy as Code', done: 0, total: 5, lessons: [
-      { n: 1, t: 'Introduction to Policy as Code', dur: '18 min', done: false },
-      { n: 2, t: 'OPA + Rego Fundamentals', dur: '26 min', done: false },
-      { n: 3, t: 'Authoring Your First Policy', dur: '24 min', done: false },
-      { n: 4, t: 'Policy Testing & Coverage', dur: '22 min', done: false },
-      { n: 5, t: 'Governance & Stakeholder Buy-In', dur: '18 min', done: false },
+    { n: 3, title: 'Policy as code', done: 0, total: 5, lessons: [
+      { n: 1, t: 'Introduction to policy as code', dur: '18 min', state: 'todo' },
+      { n: 2, t: 'OPA and Rego fundamentals', dur: '26 min', state: 'todo' },
+      { n: 3, t: 'Authoring your first policy', dur: '24 min', state: 'todo' },
+      { n: 4, t: 'Policy testing and coverage', dur: '22 min', state: 'todo' },
+      { n: 5, t: 'Governance and stakeholder buy-in', dur: '18 min', state: 'todo' },
     ]},
   ];
 
   return (
     <div>
-      <section style={{ background: DARK, padding: '48px 24px 32px', borderBottom: `1px solid ${GRAY_LIGHT}50` }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-          <Chip>Course</Chip>
-          <h1 style={{ fontSize: 44, fontWeight: 900, letterSpacing: '-0.025em', margin: '16px 0 10px' }}>
-            Certified GRC Engineer — Practitioner
-          </h1>
-          <p style={{ fontSize: 17, color: MUTED, maxWidth: 720, lineHeight: 1.6, margin: 0 }}>
-            7 chapters · ~3 hrs of video · hands-on labs · 60-question exam · IaC portfolio capstone.
+      <section className="border-b border-brand-gray-light/40">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
+          <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-brand-text-dim">
+            <Tag>CGE-P</Tag><span>Course</span>
+          </div>
+          <h1 className="mt-4 text-3xl font-medium leading-[1.1] tracking-[-0.02em] md:text-[40px]">Certified GRC Engineer, Practitioner</h1>
+          <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-brand-text-muted">
+            Seven domains, about three hours of video, hands-on labs, a 60-question exam and an IaC portfolio capstone.
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginTop: 32, maxWidth: 900 }}>
-            {[['32%', 'Complete'], ['8/25', 'Lessons'], ['5.2h', 'Logged'], ['6', 'Day streak']].map(([n, l]) => (
-              <div key={l} style={{ background: GRAY, border: `1px solid ${GRAY_LIGHT}`, borderRadius: 12, padding: '16px 18px' }}>
-                <div style={{ fontSize: 26, fontWeight: 900, color: '#fff', letterSpacing: '-0.02em' }}>{n}</div>
-                <div style={{ fontSize: 11, color: MUTED, textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 600, marginTop: 4 }}>{l}</div>
-              </div>
-            ))}
+          <div className="mt-8 grid max-w-3xl grid-cols-2 gap-2 sm:grid-cols-4">
+            {[['43%', 'Complete'], ['3 / 7', 'Modules'], ['5.2 h', 'Logged'], ['Nov 4', 'Last watched']].map(([n, l]) => <StatTile key={l} value={n} label={l} />)}
           </div>
         </div>
       </section>
-      <section style={{ background: DARK_ALT, padding: '40px 24px 64px' }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 20 }}>
-          {chapters.map(ch => (
-            <div key={ch.n} style={{ background: GRAY, border: `1px solid ${GRAY_LIGHT}`, borderRadius: 16, overflow: 'hidden' }}>
-              <div style={{
-                padding: '22px 28px', display: 'flex', alignItems: 'center', gap: 20,
-                borderBottom: `1px solid ${GRAY_LIGHT}`,
-              }}>
-                <div style={{ fontSize: 44, fontWeight: 900, color: ORANGE, letterSpacing: '-0.03em', lineHeight: 1, minWidth: 80 }}>{ch.n}</div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginBottom: 4 }}>{ch.title}</div>
-                  <div style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>{ch.done} of {ch.total} lessons complete</div>
+      <section className="bg-brand-dark-alt">
+        <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-10 sm:px-6 lg:px-8">
+          {chapters.map((ch) => (
+            <div key={ch.n} className="overflow-hidden rounded-xl border border-brand-gray-light bg-brand-gray">
+              <div className="flex items-center gap-4 border-b border-brand-gray-light px-6 py-5">
+                <Tag>{`D${ch.n}`}</Tag>
+                <div className="flex-1">
+                  <div className="text-base font-medium">{ch.title}</div>
+                  <div className="mt-0.5 text-[13px] text-brand-text-muted tabular-nums">{ch.done} of {ch.total} lessons complete</div>
                 </div>
-                <div style={{ width: 180 }}>
-                  <Progress value={(ch.done / ch.total) * 100} size="sm" showValue={false} />
-                </div>
+                <div className="w-44"><Progress value={(ch.done / ch.total) * 100} quiet={ch.done === 0} /></div>
               </div>
-              <div>
+              <ol>
                 {ch.lessons.map((l, i) => (
-                  <button key={l.n} onClick={() => go('lesson')} style={{
-                    width: '100%', textAlign: 'left', padding: '14px 28px 14px 80px',
-                    display: 'flex', alignItems: 'center', gap: 16,
-                    background: l.current ? 'rgba(232,101,10,0.08)' : 'transparent',
-                    border: 'none', borderBottom: i < ch.lessons.length - 1 ? `1px solid ${GRAY_LIGHT}50` : 'none',
-                    color: TEXT, fontFamily: 'inherit', cursor: 'pointer',
-                  }}>
-                    <div style={{
-                      width: 28, height: 28, borderRadius: 9999, flexShrink: 0,
-                      background: l.done ? ORANGE : l.current ? 'rgba(232,101,10,0.15)' : GRAY,
-                      border: l.current ? `2px solid ${ORANGE}` : `1px solid ${GRAY_LIGHT}`,
-                      color: l.done ? '#fff' : MUTED,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: 13, fontWeight: 800,
-                    }}>
-                      {l.done ? <Icon name="check" size={14} /> : l.n}
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 15, fontWeight: l.current ? 700 : 600, color: l.done ? MUTED : '#fff' }}>{l.t}</div>
-                      <div style={{ fontSize: 12, color: MUTED, marginTop: 2, display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <span style={{ display: 'inline-flex', gap: 5, alignItems: 'center' }}>
-                          <Icon name={l.dur.includes('lab') ? 'flask-conical' : 'play'} size={12} />
-                          {l.dur}
-                        </span>
-                        {l.current && <span style={{ color: ORANGE, fontWeight: 700 }}>• Currently watching</span>}
-                      </div>
-                    </div>
-                    <Icon name="chevron-right" size={16} color={MUTED} />
-                  </button>
+                  <li key={l.n}>
+                    <button
+                      onClick={() => go('lesson')}
+                      className={`grid w-full grid-cols-[16px_1fr_auto_16px] items-center gap-4 px-6 py-3 text-left transition-colors duration-150 hover:bg-brand-gray-light/40 cursor-pointer ${i < ch.lessons.length - 1 ? 'border-b border-brand-gray-light/50' : ''}`}
+                    >
+                      <span className={`grid h-4 w-4 place-items-center rounded-full border-[1.5px] ${l.state === 'done' ? 'border-emerald-400 bg-emerald-400' : l.state === 'now' ? 'border-brand-orange' : 'border-brand-gray-light'}`}>
+                        {l.state === 'done' && <Icon name="check" size={11} strokeWidth={2.5} className="text-brand-dark" />}
+                        {l.state === 'now' && <span className="h-1.5 w-1.5 rounded-full bg-brand-orange" />}
+                      </span>
+                      <span className={`text-sm ${l.state === 'todo' ? 'text-brand-text-muted' : 'text-brand-text'}`}>
+                        {l.t}
+                        {l.state === 'now' && <span className="ml-2 font-mono text-[11px] text-brand-orange-light">now watching</span>}
+                      </span>
+                      <span className="font-mono text-[11px] text-brand-text-dim">{l.dur}</span>
+                      <Icon name="chevron-right" size={16} className="text-brand-text-dim" />
+                    </button>
+                  </li>
                 ))}
-              </div>
+              </ol>
             </div>
           ))}
         </div>
@@ -107,170 +87,114 @@ const CourseOutline = ({ go }) => {
 /* ==== Lesson / video player ==== */
 const LessonPlayer = ({ go }) => {
   const [playing, setPlaying] = useState(false);
-  const [t, setT] = useState(320); // seconds
+  const [t, setT] = useState(320);
   const dur = 22 * 60;
   const pct = (t / dur) * 100;
-  const mmss = (s) => `${Math.floor(s/60)}:${String(Math.floor(s)%60).padStart(2,'0')}`;
+  const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s) % 60).padStart(2, '0')}`;
 
   useEffect(() => {
     if (!playing) return;
-    const id = setInterval(() => setT(x => Math.min(dur, x + 1)), 1000);
+    const id = setInterval(() => setT((x) => Math.min(dur, x + 1)), 1000);
     return () => clearInterval(id);
   }, [playing]);
 
   return (
-    <div style={{ background: DARK, minHeight: 'calc(100vh - 64px)' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto', padding: '24px', display: 'grid', gridTemplateColumns: '1fr 320px', gap: 24 }}>
-        {/* Main column */}
-        <div>
-          <button onClick={() => go('course')} style={{
-            display: 'inline-flex', alignItems: 'center', gap: 6,
-            background: 'none', border: 'none', color: MUTED,
-            fontFamily: 'inherit', fontSize: 13, fontWeight: 600, cursor: 'pointer', marginBottom: 16,
-          }}>
-            <Icon name="chevron-left" size={14} /> Back to course
-          </button>
-          <div style={{ fontSize: 12, fontWeight: 700, color: ORANGE, textTransform: 'uppercase', letterSpacing: '0.12em' }}>
-            Chapter 02 · Lesson 03
-          </div>
-          <h1 style={{ fontSize: 36, fontWeight: 900, letterSpacing: '-0.02em', margin: '8px 0 24px' }}>
-            IaC as Compliance Evidence
-          </h1>
+    <div className="mx-auto grid max-w-7xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[1fr_320px] lg:px-8">
+      <div>
+        <button onClick={() => go('course')} className="mb-4 inline-flex items-center gap-1.5 text-[13px] text-brand-text-muted hover:text-brand-text transition-colors duration-150 cursor-pointer">
+          <Icon name="chevron-left" size={14} /> Back to course
+        </button>
+        <div className="flex items-center gap-2 font-mono text-xs text-brand-text-dim"><Tag>D2</Tag><span>Infrastructure as code · lesson 3 of 5</span></div>
+        <h1 className="mt-3 mb-6 text-3xl font-medium tracking-[-0.02em]">IaC as compliance evidence</h1>
 
-          {/* Video */}
-          <div style={{
-            position: 'relative', aspectRatio: '16/9', background: '#000',
-            borderRadius: 14, border: `1px solid ${GRAY_LIGHT}`, overflow: 'hidden',
-          }}>
-            <div style={{
-              position: 'absolute', inset: 0,
-              background: `radial-gradient(ellipse at 30% 40%, rgba(232,101,10,0.18), transparent 60%), ${DARK}`,
-            }} />
-            {/* "AJ" placeholder speaker */}
-            <div style={{
-              position: 'absolute', left: '50%', top: '42%', transform: 'translate(-50%,-50%)',
-              width: 140, height: 140, borderRadius: '50%',
-              background: `linear-gradient(135deg, ${ORANGE}, ${ORANGE_LIGHT})`,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 48, fontWeight: 900, color: '#fff',
-              boxShadow: '0 20px 50px rgba(232,101,10,0.35)',
-            }}>AJ</div>
-            <div style={{
-              position: 'absolute', bottom: 24, left: 24, right: 24,
-              display: 'flex', alignItems: 'center', gap: 14,
-            }}>
-              <button onClick={() => setPlaying(p => !p)} style={{
-                width: 56, height: 56, borderRadius: '50%', border: 'none', cursor: 'pointer',
-                background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                boxShadow: '0 6px 18px rgba(0,0,0,0.4)',
-              }}>
-                <Icon name={playing ? 'pause' : 'play'} size={22} color="#000" />
-              </button>
-              <div style={{ fontSize: 13, color: '#fff', fontWeight: 700, fontVariantNumeric: 'tabular-nums', minWidth: 90 }}>
-                {mmss(t)} <span style={{ color: 'rgba(255,255,255,0.5)' }}>/ {mmss(dur)}</span>
-              </div>
-              <div style={{ flex: 1, height: 4, background: 'rgba(255,255,255,0.2)', borderRadius: 9999, position: 'relative' }}>
-                <div style={{ position: 'absolute', inset: 0, right: `${100 - pct}%`, background: ORANGE, borderRadius: 9999 }} />
-                <div style={{
-                  position: 'absolute', left: `${pct}%`, top: '50%', transform: 'translate(-50%,-50%)',
-                  width: 14, height: 14, borderRadius: '50%', background: ORANGE,
-                  boxShadow: '0 0 0 4px rgba(232,101,10,0.25)',
-                }} />
-              </div>
-              <div style={{ display: 'flex', gap: 8, color: '#fff' }}>
-                <Icon name="volume-2" size={18} />
-                <Icon name="subtitles" size={18} />
-                <Icon name="maximize-2" size={18} />
-              </div>
-            </div>
+        {/* Video: a dark frame, flat controls */}
+        <div className="relative aspect-video overflow-hidden rounded-xl border border-brand-gray-light bg-black">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <button onClick={() => setPlaying((p) => !p)} className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-orange text-brand-dark cursor-pointer">
+              <Icon name={playing ? 'pause' : 'play'} size={22} strokeWidth={2} className={playing ? '' : 'ml-0.5'} />
+            </button>
           </div>
-
-          {/* Description + transcript */}
-          <div style={{ marginTop: 28, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-            <div style={{ background: GRAY, border: `1px solid ${GRAY_LIGHT}`, borderRadius: 14, padding: 22 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: ORANGE, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 10 }}>About this lesson</div>
-              <p style={{ fontSize: 15, color: MUTED, lineHeight: 1.6, margin: 0 }}>
-                How Terraform state + signed plan output become machine-verifiable compliance evidence.
-                You'll learn the exact pipeline: plan → apply → signed artifact → evidence vault → control mapping.
-              </p>
-              <div style={{ display: 'flex', gap: 20, marginTop: 18, fontSize: 13, color: MUTED }}>
-                <span style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}><Icon name="clock" size={14} /> 22 min</span>
-                <span style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}><Icon name="flask-conical" size={14} /> 1 lab</span>
-                <span style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}><Icon name="file-text" size={14} /> Transcript</span>
-              </div>
+          <div className="absolute inset-x-5 bottom-5 flex items-center gap-4">
+            <span className="min-w-[88px] font-mono text-xs tabular-nums text-brand-text">
+              {mmss(t)} <span className="text-brand-text-dim">/ {mmss(dur)}</span>
+            </span>
+            <div className="relative h-1 flex-1 rounded-sm bg-brand-gray-light">
+              <div className="absolute inset-y-0 left-0 rounded-sm bg-brand-orange" style={{ width: `${pct}%` }} />
             </div>
-            <div style={{ background: GRAY, border: `1px solid ${GRAY_LIGHT}`, borderRadius: 14, padding: 22 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: ORANGE, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 10 }}>Resources</div>
-              {[
-                ['file-code-2', 's3-evidence-vault.tf', 'Starter Terraform module'],
-                ['file-text',   'Evidence mapping worksheet', 'PDF · 4 pages'],
-                ['github',      'Lab repo', 'grc-eng-club/iac-evidence-lab'],
-              ].map(([icon, t, s]) => (
-                <div key={t} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: `1px solid ${GRAY_LIGHT}50` }}>
-                  <div style={{
-                    width: 32, height: 32, borderRadius: 8,
-                    background: 'rgba(232,101,10,0.12)', color: ORANGE,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-                  }}><Icon name={icon} size={16} /></div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: '#fff' }}>{t}</div>
-                    <div style={{ fontSize: 12, color: MUTED, marginTop: 2 }}>{s}</div>
-                  </div>
-                  <Icon name="arrow-up-right" size={14} color={MUTED} />
-                </div>
-              ))}
+            <div className="flex gap-3 text-brand-text-muted">
+              <Icon name="volume-2" size={18} /><Icon name="subtitles" size={18} /><Icon name="maximize-2" size={18} />
             </div>
-          </div>
-
-          <div style={{ marginTop: 28, display: 'flex', justifyContent: 'space-between', gap: 12 }}>
-            <AcademyButton variant="ghost" icon="chevron-left">Previous lesson</AcademyButton>
-            <AcademyButton variant="primary" icon="check" onClick={() => go('labs')}>
-              Mark complete & continue
-            </AcademyButton>
           </div>
         </div>
 
-        {/* Sidebar */}
-        <div>
-          <div style={{ background: GRAY, border: `1px solid ${GRAY_LIGHT}`, borderRadius: 14, padding: 18, marginBottom: 20 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: ORANGE, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 10 }}>Chapter 02 progress</div>
-            <Progress value={60} size="sm" showValue={false} />
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8, fontSize: 12, color: MUTED, fontWeight: 600 }}>
-              <span>3 of 5 lessons</span>
-              <span style={{ color: ORANGE }}>60%</span>
+        <div className="mt-6 grid gap-5 md:grid-cols-2">
+          <div className="rounded-xl border border-brand-gray-light bg-brand-gray p-6">
+            <p className="font-mono text-xs text-brand-text-dim">About this lesson</p>
+            <p className="mt-3 text-[15px] leading-relaxed text-brand-text-muted">
+              How Terraform state and signed plan output become machine-verifiable compliance evidence: plan, apply, signed artifact, evidence vault, control mapping.
+            </p>
+            <div className="mt-4 flex gap-5 text-[13px] text-brand-text-muted">
+              <span className="inline-flex items-center gap-1.5"><Icon name="clock" size={14} className="text-brand-text-dim" /> 22 min</span>
+              <span className="inline-flex items-center gap-1.5"><Icon name="flask-conical" size={14} className="text-brand-text-dim" /> 1 lab</span>
+              <span className="inline-flex items-center gap-1.5"><Icon name="file-text" size={14} className="text-brand-text-dim" /> Transcript</span>
             </div>
           </div>
-          <div style={{ background: GRAY, border: `1px solid ${GRAY_LIGHT}`, borderRadius: 14, overflow: 'hidden' }}>
-            <div style={{ padding: '14px 18px', borderBottom: `1px solid ${GRAY_LIGHT}`, fontSize: 14, fontWeight: 800 }}>Up next in this chapter</div>
-            {[
-              ['4', 'State, Drift & Enforcement', '20 min'],
-              ['5', 'IaC Lab  - S3 Encrypted Vault', '45 min lab'],
-            ].map(([n, t, d]) => (
-              <div key={n} style={{ padding: '14px 18px', display: 'flex', gap: 12, alignItems: 'center', borderBottom: `1px solid ${GRAY_LIGHT}50` }}>
-                <div style={{ width: 28, height: 28, borderRadius: 9999, background: DARK, border: `1px solid ${GRAY_LIGHT}`, color: MUTED, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, flexShrink: 0 }}>{n}</div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: '#fff' }}>{t}</div>
-                  <div style={{ fontSize: 12, color: MUTED, marginTop: 2 }}>{d}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={{ background: GRAY, border: `1px solid ${ORANGE}`, borderRadius: 14, padding: 18, marginTop: 20,
-            backgroundImage: 'linear-gradient(180deg, rgba(232,101,10,0.08), transparent)',
-          }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: ORANGE, textTransform: 'uppercase', letterSpacing: '0.12em' }}>Discussion</div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', margin: '6px 0 10px' }}>24 comments on this lesson</div>
-            <div style={{ display: 'flex', marginBottom: 12 }}>
-              {['AJ', 'EM', 'DK', 'LC'].map((i, idx) => (
-                <div key={i} style={{ marginLeft: idx ? -8 : 0 }}>
-                  <Avatar initials={i} size={28} />
-                </div>
+          <div className="rounded-xl border border-brand-gray-light bg-brand-gray p-6">
+            <p className="font-mono text-xs text-brand-text-dim">Resources</p>
+            <ul className="mt-2">
+              {[
+                ['file-code', 's3-evidence-vault.tf', 'Starter Terraform module'],
+                ['file-text', 'Evidence mapping worksheet', 'PDF · 4 pages'],
+                ['github', 'Lab repo', 'grc-eng-club/iac-evidence-lab'],
+              ].map(([icon, title, sub]) => (
+                <li key={title} className="flex items-center gap-3 border-b border-brand-gray-light/50 py-3 last:border-0">
+                  <Icon name={icon} size={16} className="text-brand-text-dim" />
+                  <div className="flex-1">
+                    <div className="text-sm font-medium">{title}</div>
+                    <div className="text-xs text-brand-text-dim">{sub}</div>
+                  </div>
+                  <Icon name="arrow-up-right" size={14} className="text-brand-text-dim" />
+                </li>
               ))}
-            </div>
-            <AcademyButton size="sm" variant="secondary" icon="message-circle" style={{ width: '100%', justifyContent: 'center' }}>Join the thread</AcademyButton>
+            </ul>
           </div>
+        </div>
+
+        <div className="mt-6 flex justify-between gap-3">
+          <AcademyButton variant="secondary" icon="chevron-left">Previous lesson</AcademyButton>
+          <AcademyButton icon="check" onClick={() => go('labs')}>Mark complete and continue</AcademyButton>
         </div>
       </div>
+
+      {/* Sidebar */}
+      <aside className="space-y-5">
+        <div className="rounded-xl border border-brand-gray-light bg-brand-gray p-5">
+          <Progress value={60} label="D2 · Infrastructure as code" lead />
+          <p className="mt-2 text-xs text-brand-text-dim">3 of 5 lessons</p>
+        </div>
+        <div className="overflow-hidden rounded-xl border border-brand-gray-light bg-brand-gray">
+          <div className="border-b border-brand-gray-light px-5 py-3 text-sm font-medium">Up next in this domain</div>
+          {[['4', 'State, drift and enforcement', '20 min'], ['5', 'IaC lab: S3 encrypted vault', '45 min lab']].map(([n, title, d]) => (
+            <div key={n} className="flex items-center gap-3 border-b border-brand-gray-light/50 px-5 py-3 last:border-0">
+              <span className="font-mono text-xs text-brand-text-dim tabular-nums">{n}</span>
+              <div className="flex-1">
+                <div className="text-sm">{title}</div>
+                <div className="font-mono text-[11px] text-brand-text-dim">{d}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-xl border border-brand-gray-light bg-brand-gray p-5">
+          <p className="font-mono text-xs text-brand-text-dim">Discussion</p>
+          <p className="mt-1 text-sm font-medium">24 comments on this lesson</p>
+          <div className="mt-3 flex">
+            {['AJ', 'EM', 'DK', 'LC'].map((i, idx) => (
+              <div key={i} style={{ marginLeft: idx ? -8 : 0 }}><Avatar initials={i} size={28} /></div>
+            ))}
+          </div>
+          <AcademyButton size="sm" variant="secondary" icon="message-circle" className="mt-4 w-full">Join the thread</AcademyButton>
+        </div>
+      </aside>
     </div>
   );
 };
@@ -278,57 +202,44 @@ const LessonPlayer = ({ go }) => {
 /* ==== Labs list ==== */
 const LabsPage = () => {
   const labs = [
-    { ch: '02', t: 'S3 Encrypted Evidence Vault', tags: ['Terraform', 'AWS'], time: '45 min', status: 'in-progress' },
-    { ch: '02', t: 'Drift Detection Pipeline', tags: ['Terraform', 'CI/CD'], time: '60 min', status: 'locked' },
-    { ch: '03', t: 'Authoring an OPA Policy', tags: ['OPA', 'Rego'], time: '50 min', status: 'locked' },
-    { ch: '03', t: 'Policy Tests with Conftest', tags: ['OPA', 'Testing'], time: '40 min', status: 'locked' },
-    { ch: '04', t: 'Evidence-as-Code Pipeline', tags: ['GitHub Actions'], time: '55 min', status: 'locked' },
-    { ch: '05', t: 'AWS Config + GuardDuty Baseline', tags: ['AWS', 'Monitoring'], time: '50 min', status: 'locked' },
+    { d: 'D2', t: 'S3 encrypted evidence vault', tags: ['Terraform', 'AWS'], time: '45 min', status: 'in-progress' },
+    { d: 'D2', t: 'Drift detection pipeline', tags: ['Terraform', 'CI/CD'], time: '60 min', status: 'locked' },
+    { d: 'D3', t: 'Authoring an OPA policy', tags: ['OPA', 'Rego'], time: '50 min', status: 'locked' },
+    { d: 'D3', t: 'Policy tests with Conftest', tags: ['OPA', 'Testing'], time: '40 min', status: 'locked' },
+    { d: 'D4', t: 'Evidence-as-code pipeline', tags: ['GitHub Actions'], time: '55 min', status: 'locked' },
+    { d: 'D5', t: 'AWS Config and GuardDuty baseline', tags: ['AWS', 'Monitoring'], time: '50 min', status: 'locked' },
   ];
   return (
-    <div style={{ background: DARK, minHeight: 'calc(100vh - 64px)', padding: '48px 24px' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-        <Chip>Hands-on</Chip>
-        <h1 style={{ fontSize: 44, fontWeight: 900, letterSpacing: '-0.025em', margin: '14px 0 10px' }}>Labs</h1>
-        <p style={{ fontSize: 17, color: MUTED, maxWidth: 720, lineHeight: 1.6, margin: 0 }}>
-          Ship real compliance-as-code. Every lab gives you a repo, a runbook, and a graded checklist that becomes part of your CGE-P portfolio.
-        </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginTop: 36 }}>
-          {labs.map((l, i) => {
-            const isLocked = l.status === 'locked';
-            const isActive = l.status === 'in-progress';
-            return (
-              <div key={i} style={{
-                background: GRAY,
-                border: `1px solid ${isActive ? ORANGE : GRAY_LIGHT}`,
-                borderRadius: 16, padding: 22, position: 'relative',
-                opacity: isLocked ? 0.55 : 1,
-              }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 14 }}>
-                  <Chip tone={isActive ? 'orange' : 'gray'}>Chapter {l.ch}</Chip>
-                  {isLocked && <Icon name="lock" size={16} color={MUTED} />}
-                  {isActive && <Chip>In progress</Chip>}
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
+      <p className="font-mono text-xs text-brand-text-dim">Hands-on</p>
+      <h1 className="mt-3 text-3xl font-medium leading-[1.1] tracking-[-0.02em] md:text-[40px]">Labs</h1>
+      <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-brand-text-muted">
+        Ship real compliance as code. Every lab gives you a repo, a runbook and a graded checklist that becomes part of your CGE-P portfolio.
+      </p>
+      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {labs.map((l) => {
+          const locked = l.status === 'locked';
+          const active = l.status === 'in-progress';
+          return (
+            <div key={l.t} className={`flex flex-col rounded-xl border border-brand-gray-light bg-brand-gray p-6 transition-colors duration-150 ${locked ? '' : 'hover:border-brand-text-dim/50'}`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Tag>{l.d}</Tag>
+                  {active && <span className="font-mono text-[11px] text-brand-orange-light">in progress</span>}
                 </div>
-                <div style={{ fontSize: 20, fontWeight: 800, color: '#fff', lineHeight: 1.25, marginBottom: 14 }}>{l.t}</div>
-                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
-                  {l.tags.map(t => (
-                    <span key={t} style={{
-                      fontSize: 11, fontWeight: 700, color: MUTED,
-                      padding: '3px 8px', borderRadius: 6,
-                      background: DARK, border: `1px solid ${GRAY_LIGHT}`,
-                    }}>{t}</span>
-                  ))}
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: 13, color: MUTED, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                    <Icon name="clock" size={14} /> {l.time}
-                  </span>
-                  {isActive ? <AcademyButton size="sm" icon="arrow-right">Resume</AcademyButton> : null}
-                </div>
+                {locked && <Icon name="lock" size={16} className="text-brand-text-dim" />}
               </div>
-            );
-          })}
-        </div>
+              <h3 className={`mt-4 text-base font-medium leading-[22px] ${locked ? 'text-brand-text-muted' : ''}`}>{l.t}</h3>
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {l.tags.map((t) => <Tag key={t}>{t}</Tag>)}
+              </div>
+              <div className="mt-5 flex flex-1 items-end justify-between">
+                <span className="inline-flex items-center gap-1.5 text-[13px] text-brand-text-dim"><Icon name="clock" size={14} /> {l.time}</span>
+                {active && <AcademyButton size="sm">Resume <Icon name="arrow-right" size={14} /></AcademyButton>}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -337,59 +248,51 @@ const LabsPage = () => {
 /* ==== Exam readiness ==== */
 const ExamPage = () => {
   const domains = [
-    ['Foundations', 90],
-    ['Infrastructure as Code', 55],
-    ['Policy as Code', 12],
-    ['CI/CD & Evidence', 0],
-    ['Cloud-Native Security', 0],
-    ['OSCAL & cATO', 0],
-    ['Capstone Readiness', 0],
+    ['D1', 'GRC engineering foundations', 90],
+    ['D2', 'Infrastructure as code', 55],
+    ['D3', 'Policy as code', 12],
+    ['D4', 'CI/CD for GRC engineers', 0],
+    ['D5', 'Cloud-native security and monitoring', 0],
+    ['D6', 'OSCAL and continuous authorization', 0],
+    ['D7', 'Applied GRC engineering', 0],
   ];
   return (
-    <div style={{ background: DARK, minHeight: 'calc(100vh - 64px)', padding: '48px 24px' }}>
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-        <Chip>Certification</Chip>
-        <h1 style={{ fontSize: 48, fontWeight: 900, letterSpacing: '-0.025em', margin: '14px 0 10px' }}>
-          CGE-P Exam <span style={{ color: ORANGE }}>Readiness</span>
-        </h1>
-        <p style={{ fontSize: 18, color: MUTED, maxWidth: 820, lineHeight: 1.6, margin: 0 }}>
-          60 questions. 72% to pass. Unlocked when all chapters are complete and your capstone is submitted.
-        </p>
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
+      <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-brand-text-dim"><Tag>CGE-P</Tag><span>Certification</span></div>
+      <h1 className="mt-4 text-3xl font-medium leading-[1.1] tracking-[-0.02em] md:text-[40px]">Exam readiness</h1>
+      <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-brand-text-muted">
+        60 questions, 90 minutes, open book, 72% to pass. Unlocks when all seven domains are complete.
+      </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 24, marginTop: 36 }}>
-          <div style={{ background: GRAY, border: `1px solid ${GRAY_LIGHT}`, borderRadius: 16, padding: 28 }}>
-            <div style={{ fontSize: 20, fontWeight: 800, marginBottom: 20 }}>Readiness by domain</div>
-            {domains.map(([t, v]) => (
-              <div key={t} style={{ marginBottom: 18 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, color: '#fff', fontWeight: 600, marginBottom: 8 }}>
-                  <span>{t}</span>
-                  <span style={{ color: v >= 72 ? ORANGE : MUTED, fontWeight: 700 }}>{v}%</span>
+      <div className="mt-10 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+        <div className="rounded-xl border border-brand-gray-light bg-brand-gray p-6">
+          <h2 className="text-[15px] font-medium">Readiness by domain</h2>
+          <ol className="mt-4 border-t border-brand-gray-light">
+            {domains.map(([d, t, v]) => (
+              <li key={d} className="grid grid-cols-[44px_1fr_140px_44px] items-center gap-3 border-b border-brand-gray-light py-3 text-sm">
+                <Tag>{d}</Tag>
+                <span className={v === 0 ? 'text-brand-text-muted' : 'text-brand-text'}>{t}</span>
+                <div className="h-1 overflow-hidden rounded-sm bg-brand-gray-light">
+                  <div className={`h-full rounded-sm ${v >= 72 ? 'bg-brand-orange' : 'bg-brand-text-dim'}`} style={{ width: `${v}%` }} />
                 </div>
-                <div style={{ height: 6, background: DARK, borderRadius: 9999, overflow: 'hidden', border: `1px solid ${GRAY_LIGHT}` }}>
-                  <div style={{ width: `${v}%`, height: '100%', background: v >= 72 ? ORANGE : `linear-gradient(90deg, ${ORANGE}, ${ORANGE_LIGHT})` }} />
-                </div>
-              </div>
+                <span className={`text-right font-mono text-[11px] tabular-nums ${v >= 72 ? 'text-brand-orange-light' : 'text-brand-text-dim'}`}>{v}%</span>
+              </li>
             ))}
+          </ol>
+          <p className="mt-3 text-xs text-brand-text-dim">A domain reads as ready at 72%, the same bar as the exam.</p>
+        </div>
+        <div className="space-y-5">
+          <div className="rounded-xl border border-brand-gray-light bg-brand-gray p-6">
+            <p className="font-mono text-xs text-brand-text-dim">Mock exam</p>
+            <h3 className="mt-1 text-base font-medium">Take a practice run</h3>
+            <p className="mt-2 text-sm leading-relaxed text-brand-text-muted">Timed 60-question mock from the same question bank. Opens at 60% of the course.</p>
+            <AcademyButton className="mt-5 w-full" icon="lock" disabled>Opens at 60%</AcademyButton>
           </div>
-          <div>
-            <div style={{ background: GRAY, border: `1px solid ${GRAY_LIGHT}`, borderRadius: 16, padding: 28, marginBottom: 20 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: ORANGE, textTransform: 'uppercase', letterSpacing: '0.12em' }}>Mock exam</div>
-              <div style={{ fontSize: 22, fontWeight: 900, margin: '6px 0 14px' }}>Take a practice run</div>
-              <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.55, margin: '0 0 18px' }}>
-                Timed 60-question mock using the same question bank. Locked until you've completed 60% of the course.
-              </p>
-              <AcademyButton size="md" variant="ghost" icon="lock" style={{ width: '100%', justifyContent: 'center' }}>Unlock at 60%</AcademyButton>
-            </div>
-            <div style={{ background: GRAY, border: `1px solid ${ORANGE}`, borderRadius: 16, padding: 28,
-              backgroundImage: 'linear-gradient(180deg, rgba(232,101,10,0.12), transparent)',
-            }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: ORANGE, textTransform: 'uppercase', letterSpacing: '0.12em' }}>Your capstone</div>
-              <div style={{ fontSize: 22, fontWeight: 900, margin: '6px 0 14px' }}>Ship a real IaC portfolio</div>
-              <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.55, margin: '0 0 18px' }}>
-                Pick a control. Automate it. Prove it. Submit your repo + runbook when you're ready.
-              </p>
-              <AcademyButton size="md" icon="upload" style={{ width: '100%', justifyContent: 'center' }}>Submit capstone</AcademyButton>
-            </div>
+          <div className="rounded-xl border border-brand-gray-light bg-brand-gray p-6">
+            <p className="font-mono text-xs text-brand-text-dim">Your capstone</p>
+            <h3 className="mt-1 text-base font-medium">Ship a real IaC portfolio</h3>
+            <p className="mt-2 text-sm leading-relaxed text-brand-text-muted">Pick a control. Automate it. Prove it. Submit your repo and runbook when you are ready.</p>
+            <AcademyButton className="mt-5 w-full" icon="upload">Submit capstone</AcademyButton>
           </div>
         </div>
       </div>

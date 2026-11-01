@@ -1,21 +1,18 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>FAQ</title><link rel="stylesheet" href="../colors_and_type.css">
 <style>
-  body { margin:0; padding: 16px; background: var(--bg-page); display:grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
-  .row { background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; padding: 12px 14px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
-  .row:hover { background: rgba(58,58,58,.5); }
-  .q { color:#fff; font-weight: 600; font-size: 13px; }
-  .chev { color: var(--fg-accent); transition: transform 200ms; }
+  body { margin:0; padding: 16px; background: var(--bg-page); display:grid; grid-template-columns: repeat(2,1fr); gap: 10px; align-items:start; }
+  .row { background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; padding: 14px 16px; cursor:pointer; transition: border-color 150ms; }
+  .row:hover { border-color: var(--border-hover); }
+  .q { display:flex; justify-content:space-between; align-items:center; gap: 12px; color: var(--fg-1); font-weight: 500; font-size: 14px; }
+  .chev { color: var(--fg-3); width: 16px; height: 16px; flex: none; transition: transform 150ms; }
   .open .chev { transform: rotate(180deg); }
-  .open { display:block; }
-  .open .q { display:flex; justify-content:space-between; align-items:center; }
-  .answer { color: var(--fg-3); font-size: 12px; line-height: 1.6; margin: 10px 0 0; }
+  .answer { color: var(--fg-2); font-size: 14px; line-height: 1.6; margin: 10px 0 0; }
 </style></head><body>
 <div class="row">
-  <span class="q">What is GRC engineering?</span>
-  <span class="chev">▾</span>
+  <div class="q"><span>What is GRC engineering?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></div>
 </div>
-<div class="row open" style="display:block">
-  <div class="q"><span>Do I need coding experience?</span><span class="chev" style="transform:rotate(180deg)">▾</span></div>
-  <p class="answer">No prior coding experience is required. Our labs start from the fundamentals and build up.</p>
+<div class="row open">
+  <div class="q"><span>Do I need coding experience?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></div>
+  <p class="answer">No. The labs start from the fundamentals and build up. You learn scripting and infrastructure as code as part of the path.</p>
 </div>
 </body></html>

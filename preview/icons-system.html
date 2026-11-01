@@ -1,21 +1,34 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Icons</title><link rel="stylesheet" href="../colors_and_type.css">
 <style>
-  body { margin:0; padding: 16px; background: var(--bg-page); display:flex; gap: 12px; align-items:center; flex-wrap:wrap; }
-  .well { width:48px; height:48px; border-radius:9999px; background: rgba(232,101,10,.10); color: var(--fg-accent); display:inline-flex; align-items:center; justify-content:center; }
-  .well.sm { width:36px; height:36px; }
-  .well.lg { width:60px; height:60px; }
-  .well svg { width:50%; height:50%; }
-  .label { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); }
-  .group { display:flex; flex-direction:column; align-items:center; gap:6px; }
+  body { margin:0; padding: 16px 20px; background: var(--bg-page); display:grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  i[data-lucide] { stroke-width: 1.5; display:inline-block; flex:none; }
+  .sizes { display:flex; gap: 24px; align-items:flex-end; }
+  .sz { display:flex; flex-direction:column; align-items:center; gap: 8px; color: var(--fg-2); }
+  .rows { display:flex; flex-direction:column; }
+  .row { display:grid; grid-template-columns: 20px 1fr auto; gap: 10px; align-items:center; height: 36px; border-bottom: 1px solid var(--border-default); font-size: 14px; color: var(--fg-1); }
+  .row:last-child { border: 0; }
+  .row i { width: 18px; height: 18px; color: var(--fg-2); }
+  .row .meta { justify-self:end; }
+  .lbl { margin-bottom: 10px; display:block; }
 </style></head><body>
-<script src="https://unpkg.com/lucide@latest"></script>
-<div class="group"><div class="well sm"><i data-lucide="mic"></i></div><span class="label">36px</span></div>
-<div class="group"><div class="well"><i data-lucide="shield"></i></div><span class="label">48px</span></div>
-<div class="group"><div class="well lg"><i data-lucide="graduation-cap"></i></div><span class="label">60px</span></div>
-<div class="group"><div class="well"><i data-lucide="zap"></i></div><span class="label">zap</span></div>
-<div class="group"><div class="well"><i data-lucide="cloud"></i></div><span class="label">cloud</span></div>
-<div class="group"><div class="well"><i data-lucide="users"></i></div><span class="label">users</span></div>
-<div class="group"><div class="well"><i data-lucide="flask-conical"></i></div><span class="label">flask</span></div>
-<div class="group"><div class="well"><i data-lucide="book-open"></i></div><span class="label">book</span></div>
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<div>
+  <span class="meta lbl">Lucide, stroke 1.5, three sizes, text-role color</span>
+  <div class="sizes">
+    <div class="sz"><i data-lucide="shield" style="width:16px;height:16px"></i><span class="meta">16 · inline, nav</span></div>
+    <div class="sz"><i data-lucide="shield" style="width:18px;height:18px"></i><span class="meta">18 · lists</span></div>
+    <div class="sz"><i data-lucide="shield" style="width:20px;height:20px"></i><span class="meta">20 · cards</span></div>
+    <div class="sz" style="color:var(--fg-3)"><i data-lucide="shield" style="width:20px;height:20px"></i><span class="meta">meta color</span></div>
+  </div>
+  <p class="meta" style="margin-top:16px">No circular wells, no orange icons as decoration. The icon box has the same width in every row so labels align.</p>
+</div>
+<div class="rows">
+  <div class="row"><i data-lucide="mic"></i><span>Private podcast</span><span class="meta">mic</span></div>
+  <div class="row"><i data-lucide="message-circle"></i><span>Live Q&amp;A</span><span class="meta">message-circle</span></div>
+  <div class="row"><i data-lucide="flask-conical"></i><span>Hands-on labs</span><span class="meta">flask-conical</span></div>
+  <div class="row"><i data-lucide="users"></i><span>Mock interviews</span><span class="meta">users</span></div>
+  <div class="row"><i data-lucide="book-open"></i><span>Playbooks</span><span class="meta">book-open</span></div>
+  <div class="row"><i data-lucide="shield-check"></i><span>Controls tested</span><span class="meta">shield-check</span></div>
+</div>
 <script>lucide.createIcons();</script>
 </body></html>

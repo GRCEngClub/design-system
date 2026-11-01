@@ -1,17 +1,27 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Accent</title><link rel="stylesheet" href="../colors_and_type.css">
 <style>
-  body { margin: 0; padding: 16px; background: var(--bg-page); }
-  .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-  .sw { aspect-ratio: 1.6/1; border-radius: 10px; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--border-default); }
-  .name { font-size: 11px; font-weight: 700; color: var(--fg-1); }
-  .hex { font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.7); }
-  .dark .hex, .dark .name { color: var(--fg-2); }
+  body { margin: 0; padding: 16px; background: var(--bg-page); display:grid; grid-template-columns: 3fr 2fr; gap: 16px; align-items:stretch; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .sw { aspect-ratio: 1.4/1; border-radius: 10px; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--border-default); }
+  .sw .name { font-size: 12px; font-weight: 500; }
+  .sw .hex { font-family: var(--font-mono); font-size: 11px; opacity: .85; }
+  .use { background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; padding: 14px; display:flex; flex-direction:column; gap: 12px; justify-content:center; }
+  .row { display:flex; align-items:center; justify-content:space-between; gap: 12px; font-size: 13px; color: var(--fg-2); }
+  .fig { font-weight: 500; font-size: 22px; color: var(--fg-accent-text); font-variant-numeric: tabular-nums; }
+  .dot { display:inline-block; width: 6px; height: 6px; border-radius: 9999px; background: var(--grc-orange); margin-right: 6px; }
+  .note { grid-column: 1 / -1; }
 </style></head><body>
-<div class="grid">
-  <div class="sw" style="background:#E8650A"><div class="name">Orange</div><div class="hex">#E8650A</div></div>
-  <div class="sw" style="background:#FF8533"><div class="name">Orange Light</div><div class="hex">#FF8533</div></div>
-  <div class="sw" style="background:#C45200"><div class="name">Orange Dark</div><div class="hex">#C45200</div></div>
-  <div class="sw" style="background:rgba(232,101,10,.10); border-color: rgba(232,101,10,.4)"><div class="name" style="color:#FF8533">Orange/10</div><div class="hex" style="color:#FF8533">tint</div></div>
-  <div class="sw" style="background:rgba(232,101,10,.20); border-color: rgba(232,101,10,.5)"><div class="name" style="color:#FF8533">Orange/20</div><div class="hex" style="color:#FF8533">chip bg</div></div>
+<div>
+  <div class="grid">
+    <div class="sw" style="background:#E8650A; color:#111110"><div class="name">Orange</div><div class="hex">#E8650A · fills</div></div>
+    <div class="sw" style="background:#111110; color:#FF8533"><div class="name">Orange text on dark</div><div class="hex">#FF8533</div></div>
+    <div class="sw" style="background:#FFFFFF; color:#C45200; border-color:#E5E5E5"><div class="name">Orange text on white</div><div class="hex">#C45200</div></div>
+  </div>
+  <p class="meta" style="margin:10px 0 0">One accent, a few percent of the screen. No tints, washes, gradients or glows.</p>
+</div>
+<div class="use">
+  <div class="row"><span>The primary action</span><button class="btn btn-primary btn-sm">Join the Club</button></div>
+  <div class="row"><span>The figure that matters</span><span class="fig">43%</span></div>
+  <div class="row"><span>The current step</span><span class="meta"><span class="dot"></span>evidence stage</span></div>
 </div>
 </body></html>

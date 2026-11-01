@@ -1,15 +1,16 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Merch</title><link rel="stylesheet" href="../colors_and_type.css">
 <style>
   body { margin:0; padding: 16px; background: var(--bg-page); }
-  .grid { display:grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
-  .card { background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; overflow: hidden; }
-  .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display:block; background: #fff; }
-  .label { padding: 8px 10px; font-size: 10.5px; color: var(--fg-3); font-weight: 600; }
+  .grid { display:grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+  .item { background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; overflow: hidden; }
+  .item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display:block; background: #fff; }
+  .label { padding: 10px 12px; font-size: 13px; color: var(--fg-1); }
+  .label small { display:block; margin-top: 2px; color: var(--fg-3); font-size: 12px; }
 </style></head><body>
 <div class="grid">
-  <div class="card"><img src="../assets/merch/run-grc-tee-black.jpg"><div class="label">Run GRC Tee</div></div>
-  <div class="card"><img src="../assets/merch/anti-checkbox-tee.jpg"><div class="label">Anti-Checkbox</div></div>
-  <div class="card"><img src="../assets/merch/run-grc-mug.jpg"><div class="label">Run GRC Mug</div></div>
-  <div class="card"><img src="../assets/merch/engineered-not-documented.jpg"><div class="label">Engineered, Not Documented</div></div>
+  <div class="item"><img src="../assets/merch/run-grc-tee-black.jpg" alt=""><div class="label">Run GRC tee<small>Black</small></div></div>
+  <div class="item"><img src="../assets/merch/anti-checkbox-tee.jpg" alt=""><div class="label">Anti-Checkbox tee<small>Black</small></div></div>
+  <div class="item"><img src="../assets/merch/run-grc-mug.jpg" alt=""><div class="label">Run GRC mug<small>11 oz</small></div></div>
+  <div class="item"><img src="../assets/merch/engineered-not-documented.jpg" alt=""><div class="label">Engineered, not documented<small>Tee</small></div></div>
 </div>
 </body></html>

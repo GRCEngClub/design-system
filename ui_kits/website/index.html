@@ -2,20 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GRC Engineering Club — Website UI Kit</title>
   <link rel="stylesheet" href="../../colors_and_type.css" />
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    // Mirrors src/index.css @theme on grcengclub.com (2026-11-01). Production is the source of truth.
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#E8650A',
+              'orange-light': '#FF8533',
+              'orange-dark': '#C45200',
+              dark: '#111110',
+              'dark-alt': '#161514',
+              gray: '#1C1B19',
+              'gray-light': '#2B2925',
+              text: '#EFE9DE',
+              'text-muted': '#AAA398',
+              'text-dim': '#8A847A',
+              bone: '#F2EFEA',
+            },
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'SF Mono', 'Menlo', 'Consolas', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
   <style>
-    body { margin: 0; background: #0D0D0D; color: #F5F5F5; font-family: 'Inter', system-ui, sans-serif; }
+    body { margin: 0; background: #111110; color: #EFE9DE; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
     a { color: inherit; }
+    i[data-lucide] { display: inline-block; flex: none; }
   </style>
 </head>
 <body>
 <div id="root"></div>
 <script type="text/babel" src="./Components.jsx"></script>
+<script type="text/babel" src="./PipelineRun.jsx"></script>
 <script type="text/babel" src="./HomePage.jsx"></script>
 <script type="text/babel" src="./Pages.jsx"></script>
 <script type="text/babel">
@@ -35,8 +67,7 @@
     else if (route === 'faq') page = <FAQPage />;
 
     return (
-      <div data-screen-label={`Website · ${route}`}>
-        <ReviewBanner />
+      <div data-screen-label={`Website · ${route}`} className="font-sans text-brand-text">
         <Navbar current={route} go={go} />
         <main>{page}</main>
         <Footer go={go} />

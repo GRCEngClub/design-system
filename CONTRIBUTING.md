@@ -5,7 +5,7 @@ This is the Club's brand kit. If you're a member and you've made something you t
 ## What we want
 
 - **New slide templates.** Add to `slides/` as a self-contained `<deck-stage>` block, register it in `slides/index.html`, follow the existing pattern.
-- **New UI kit surfaces.** Add `ui_kits/<surface>/{README.md, index.html, Components.jsx, Pages.jsx}`. Must follow the brand rules in [BRAND.md](BRAND.md).
+- **New UI kit surfaces.** Add `ui_kits/<surface>/{README.md, index.html, Components.jsx, Pages.jsx}`. Must follow the guide in [BRAND.md](BRAND.md).
 - **Social templates.** LinkedIn carousel page, Twitter/X card, YouTube thumbnail, conference poster — static HTML preferred.
 - **Brand-bible corrections.** Spotted a rule that's outdated, wrong, or ambiguous? Fix it in [BRAND.md](BRAND.md) and the relevant preview card.
 
@@ -13,12 +13,13 @@ This is the Club's brand kit. If you're a member and you've made something you t
 
 Before you open a PR, check your work against:
 
-- One accent color: orange `#E8650A`. No other hues.
-- Dark mode only. No light-mode surfaces.
-- Inter is the only font. Heavy weights for display.
-- Lucide icons only. No emoji, no other icon libraries.
-- The card recipe: `bg-brand-gray rounded-xl border-brand-gray-light hover:border-brand-orange/50`.
-- The voice is builder-energy. Direct, imperative, second-person. No vendor-speak, no fear-mongering, no em dashes in club copy.
+- One accent color: orange `#E8650A`, used rarely. Buttons carry dark text on it. No gradients, glows, washes or orange wells.
+- Dark graphite ramp for the web (`#111110` / `#161514` / `#1C1B19` / `#2B2925`). The light palette is for slides and print only.
+- Inter at 400 and 500, JetBrains Mono for figures, meta and control-ID tags. Nothing heavier than 600, no uppercase tracked labels, sentence case.
+- Lucide icons at 16–20px, stroke 1.5, in a text-role color. No wells, no emoji, no other icon libraries.
+- The card recipe: `bg-brand-gray rounded-xl border border-brand-gray-light hover:border-brand-text-dim/40`.
+- One moment per screen built from the product. No blobs, orbs, grids or filler imagery.
+- The voice is builder-energy. Direct, imperative, second-person. No vendor-speak, no exclamation marks, no em dashes in club copy.
 
 If your addition breaks one of these, the PR won't merge — even if it looks great on its own.
 

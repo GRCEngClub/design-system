@@ -1,61 +1,83 @@
-// Page: Academy + Stories + Join + FAQ (compact recreations)
+// Pages: Academy, Member wins, Pricing, FAQ (compact recreations, 2026-11-01 system).
+
+// The Academy hero's product view: pick a credential (cert-platform LandingPage.tsx).
+const CREDENTIALS = [
+  { code: 'CGE-P', kind: 'Practitioner', who: 'For the engineers who build automated compliance', what: 'Frameworks, Terraform, policy as code, CI/CD, continuous monitoring and OSCAL, then a capstone you push to GitHub.', facts: [['domains', '7'], ['exam', '60 q · 90 min'], ['capstone', 'required']] },
+  { code: 'CGE-AUD', kind: 'Auditor Specialty', who: 'For the auditors who evaluate it', what: 'Read pipelines, sample code-defined controls and evaluate engineered evidence. No coding background or CGE-P required.', facts: [['domains', '6'], ['exam', '50 q · 75 min'], ['capstone', 'none']] },
+  { code: 'CGE-AZ', kind: 'Azure Specialty', who: 'For CGE-P holders shipping the discipline on Azure', what: 'A complete automated GRC pipeline in your own subscription: 27 short videos, six labs and a graded capstone.', facts: [['domains', '7'], ['exam', '50 q · 75 min'], ['requires', 'CGE-P']] },
+];
+
+const CGEP_TOPICS = [
+  ['shield', 'GRC engineering foundations', 'Core concepts, maturity models, compliance frameworks (NIST, RMF, FedRAMP, CMMC) and the GRC engineer career path.'],
+  ['wrench', 'Infrastructure as code', 'Terraform fundamentals, compliant resource design, reusable modules and version control as your evidence trail.'],
+  ['clipboard-list', 'Policy as code', 'OPA/Rego policies for compliance enforcement, mapping NIST controls to executable policies and shift-left compliance.'],
+  ['workflow', 'CI/CD for GRC engineers', 'Pipelines that automate security testing, policy validation and evidence collection as a byproduct of deployment.'],
+  ['cloud', 'Cloud-native security and monitoring', 'Control validation, continuous monitoring dashboards, drift detection and cloud-native security services.'],
+  ['file-code', 'OSCAL and continuous authorization', 'OSCAL component models, System Security Plans and the roadmap from traditional ATO to cATO.'],
+  ['graduation-cap', 'Applied GRC engineering', 'End-to-end integration, portfolio projects and capstone workflows that tie all domains together.'],
+];
 
 function AcademyPage({ go }) {
   return (
     <div>
-      <section style={{ position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(232,101,10,.10), transparent 50%)' }} />
-        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '120px 24px', position: 'relative' }}>
-          <div style={{ maxWidth: 820 }}>
-            <span style={{ display: 'inline-block', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.08em', color: '#E8650A', background: 'rgba(232,101,10,.10)', padding: '8px 14px', borderRadius: 9999, marginBottom: 22 }}>Launching April 2026</span>
-            <h1 style={{ margin: 0, fontSize: 'clamp(40px, 6vw, 72px)', fontWeight: 900, letterSpacing: '-.02em', lineHeight: 1.05, color: '#fff' }}>
-              GRC Engineering Club<span style={{ color: '#E8650A' }}> Academy</span>
-            </h1>
-            <p style={{ marginTop: 22, fontSize: 21, color: '#A0A0A0', lineHeight: 1.55 }}>
-              The first certification built <span style={{ color: '#fff', fontWeight: 600 }}>by GRC engineers, for GRC engineers.</span><br />
-              From frameworks to hands-on implementation.
-            </p>
-            <div style={{ marginTop: 32, display: 'flex', gap: 14 }}>
-              <CTAButton size="lg" onClick={() => go('join')}>Join the Club</CTAButton>
-              <CTAButton size="lg" variant="secondary">Learn More →</CTAButton>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section style={{ background: '#1A1A1A', padding: '64px 24px' }}>
-        <div style={{ maxWidth: 880, margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ width: 56, height: 56, borderRadius: 9999, background: 'rgba(232,101,10,.10)', color: '#E8650A', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 18 }}>
-            <Icon name="graduation-cap" size={32} />
-          </div>
-          <h2 style={{ margin: 0, fontSize: 36, fontWeight: 800, letterSpacing: '-.02em', color: '#fff' }}>Introducing the CGE-P</h2>
-          <p style={{ marginTop: 8, color: '#E8650A', fontWeight: 600, fontSize: 17 }}>Certified GRC Engineer — Practitioner</p>
-          <p style={{ marginTop: 22, fontSize: 16.5, color: '#A0A0A0', lineHeight: 1.7 }}>
-            The CGE-P is the first certification designed specifically for GRC engineers. It covers
-            everything from GRC frameworks and cloud compliance to hands-on implementation and automation —
-            the skills you actually need to build modern compliance programs.
+      <section className="px-4 sm:px-6 lg:px-8 pt-16 pb-20 sm:pt-24 sm:pb-28">
+        <div className="mx-auto max-w-6xl">
+          <p className="font-mono text-xs text-brand-text-dim">Training Academy · CGE-P, CGE-AUD and CGE-AZ enrollment open</p>
+          <h1 className="mt-4 max-w-[18ch] text-[40px] leading-[1.04] font-medium tracking-[-0.025em] sm:text-[56px] sm:tracking-[-0.03em]">
+            Certifications built by working GRC engineers
+          </h1>
+          <p className="mt-5 max-w-xl text-lg leading-7 text-brand-text-muted">
+            The Certified GRC Engineer family is the certification path built by practitioners. Video training,
+            open-book exams and real artifacts (Terraform, pipelines, evidence), not slides and flashcards.
           </p>
-          <div style={{ marginTop: 32, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
-            {[['Study Guide', 'Comprehensive materials to prep early'], ['Exam Blueprint', 'Know exactly what to expect'], ['Free for Members', 'Full course + exam included']].map(([t, d]) => (
-              <div key={t} style={{ padding: 16 }}>
-                <p style={{ color: '#E8650A', fontWeight: 700, fontSize: 16, margin: 0 }}>{t}</p>
-                <p style={{ color: '#A0A0A0', fontSize: 13, marginTop: 6 }}>{d}</p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3">
+            <CTAButton size="md" onClick={() => go('join')}>Join the Club, all certifications included</CTAButton>
+            <CTAButton variant="secondary" size="md">Buy one certification, $350</CTAButton>
+          </div>
+
+          <div className="mt-14 grid gap-4 md:grid-cols-3">
+            {CREDENTIALS.map((c) => (
+              <div key={c.code} className="flex flex-col rounded-2xl border border-brand-gray-light bg-brand-gray p-6">
+                <div className="flex items-center gap-2">
+                  <Tag>{c.code}</Tag>
+                  <span className="font-mono text-xs text-brand-text-dim">{c.kind}</span>
+                </div>
+                <h2 className="mt-4 text-lg font-medium leading-6">{c.who}</h2>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-brand-text-muted">{c.what}</p>
+                <dl className="mt-5 grid grid-cols-3 gap-3 border-t border-brand-gray-light pt-4">
+                  {c.facts.map(([k, v]) => (
+                    <div key={k}>
+                      <dt className="font-mono text-[11px] text-brand-text-dim">{k}</dt>
+                      <dd className="mt-1 text-sm font-medium tabular-nums">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <div className="mt-5 flex items-center justify-between gap-3 text-sm">
+                  <span className="text-brand-text-dim">$350, or free with membership</span>
+                  <a className="inline-flex items-center gap-1 whitespace-nowrap font-medium text-brand-orange-light hover:text-brand-orange cursor-pointer">
+                    Get the {c.code} <Icon name="arrow-right" size={16} />
+                  </a>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section style={{ padding: '80px 24px' }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-          <SectionHeading title="What You'll Learn" subtitle="Seven domains covering the full spectrum of GRC engineering." />
-          <div style={{ marginTop: 48, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
-            <ContentCard icon="shield" title="GRC Engineering Foundations" description="Core concepts, maturity models, NIST/RMF/FedRAMP/CMMC, and the GRC Engineer career path." />
-            <ContentCard icon="wrench" title="Infrastructure as Code" description="Terraform fundamentals, compliant resource design, reusable modules, version control as evidence." />
-            <ContentCard icon="clipboard-check" title="Policy-as-Code" description="OPA/Rego policies for compliance enforcement, mapping NIST controls to executable policies." />
-            <ContentCard icon="cog" title="CI/CD for GRC Engineers" description="Build pipelines that automate security testing, policy validation, and evidence collection." />
-            <ContentCard icon="cloud" title="Cloud-Native Security & Monitoring" description="Control validation, continuous monitoring dashboards, drift detection, cloud-native security." />
-            <ContentCard icon="bar-chart-3" title="OSCAL & Continuous Authorization" description="OSCAL component models, System Security Plans, transformation roadmap from ATO to cATO." />
+      <section className="bg-brand-dark-alt py-20 md:py-28">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading title="What you'll learn in the CGE-P" subtitle="Seven domains covering the full spectrum of GRC engineering." centered={false} />
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {CGEP_TOPICS.map(([icon, title, desc], i) => (
+              <div key={title} className="rounded-xl border border-brand-gray-light bg-brand-gray p-6 hover:border-brand-text-dim/40 transition-colors duration-150">
+                <div className="flex items-center justify-between">
+                  <Icon name={icon} size={18} className="text-brand-text-muted" />
+                  <Tag>{`D${i + 1}`}</Tag>
+                </div>
+                <h3 className="mt-3 text-base font-medium">{title}</h3>
+                <p className="mt-2 text-sm text-brand-text-muted leading-relaxed">{desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -64,76 +86,80 @@ function AcademyPage({ go }) {
 }
 
 const ALL_STORIES = [
-  { q: "The club membership has been the biggest ROI I've ever had. Like, this is absolutely insane.", n: "Dex Copeland", t: "GRC Engineering Club Member" },
-  { q: "I knocked out the OSCP in just two months. It is no joke — but putting in the work paid off.", n: "Ethan Troy", t: "Earned OSCP Certification — Feb 12, 2026" },
-  { q: "I landed my first GRC role as GRC Program Analyst at Compyl. THE WORK WORKS.", n: "James Robinson (J-R)", t: "GRC Program Analyst at Compyl — Jan 13, 2026" },
-  { q: "A founder of a security company tagged his CISO on my NIST to AWS mapping project.", n: "Luigi Carpio", t: "NIST to AWS Mapping Project Recognized by a CISO" },
-  { q: "New role who dis! As AJ says, THE WORK WORKS. My portfolio site, certifications, and projects were all brought up as standouts.", n: "Akeem", t: "Landed a New Role" },
-  { q: "I passed my AWS Cloud Practitioner exam! Cloud fluency + GRC is a powerful combo.", n: "Jessica Barnwell", t: "Passed AWS Certified Cloud Practitioner — Mar 11, 2026" },
+  { q: "The club membership has been the biggest ROI I've ever had. Seeing everything that's happened since I got wind of the club last fall is wild.", n: 'Dex Copeland', t: 'GRC Engineering Club member' },
+  { q: 'I knocked out the OSCP in just two months. It is no joke, but putting in the work paid off.', n: 'Ethan Troy', t: 'Earned the OSCP · February 2026' },
+  { q: 'I landed my first GRC role as GRC Program Analyst at Compyl. The work works.', n: 'James Robinson (J-R)', t: 'GRC Program Analyst at Compyl · January 2026' },
+  { q: 'A founder of a security company tagged his CISO on my NIST to AWS mapping project.', n: 'Luigi Carpio', t: 'NIST to AWS mapping project recognized by a CISO' },
+  { q: 'New role. As AJ says, the work works. My portfolio site, certifications and projects were all brought up as standouts.', n: 'Akeem', t: 'Landed a new role' },
+  { q: 'I passed my AWS Cloud Practitioner exam. Cloud fluency plus GRC is a powerful combo.', n: 'Jessica Barnwell', t: 'Passed AWS Certified Cloud Practitioner · March 2026' },
 ];
 
 function StoriesPage() {
   return (
-    <div>
-      <section style={{ padding: '64px 24px' }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-          <SectionHeading title="Member Stories" subtitle="Real people. Real results. Real career transformations." />
-          <div style={{ marginTop: 48, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
-            {ALL_STORIES.map(s => <StoryCard key={s.n} quote={s.q} name={s.n} title={s.t} />)}
-          </div>
+    <section className="py-16 md:py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeading title="Member wins" subtitle="Real people, real roles." centered={false} />
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {ALL_STORIES.map((s) => <StoryCard key={s.n} quote={s.q} name={s.n} title={s.t} />)}
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
 
 function JoinPage() {
-  const tiers = [
-    { name: 'Practitioner', desc: 'For those who want to learn and stay sharp.', features: ['Weekly private podcast', 'Community access', 'Playbooks and guides', 'Content archive access'], hl: false },
-    { name: 'Builder', desc: 'For those ready to build, practice, and land roles.', features: ['Everything in Practitioner', 'Hands-on AWS labs', 'Mock interviews', 'Resume & LinkedIn reviews', 'Live Q&A sessions', 'Priority access'], hl: true },
+  const plans = [
+    { name: 'Annual', price: '$70', per: 'a year', desc: 'Saves $50 and comes with the redeem link for the Academy.', lead: true, features: ['Everything in the Club', 'All certifications included', 'Hands-on AWS labs', 'Mock interviews and resume reviews', 'Live Q&A every two weeks'] },
+    { name: 'Monthly', price: '$9.99', per: 'a month, locked for life', desc: 'Cancel anytime and keep access through the end of your billing period.', lead: false, features: ['Everything in the Club', 'All certifications included', 'Hands-on AWS labs', 'Mock interviews and resume reviews', 'Live Q&A every two weeks'] },
+  ];
+  const steps = [
+    ['1', 'Join on Patreon or buy annual', 'Pick a plan and join in under two minutes.'],
+    ['2', 'Get access', 'Unlock the podcast, labs, playbooks and the Training Academy.'],
+    ['3', 'Start building', 'Follow the roadmap, join live sessions, level up your career.'],
   ];
   return (
     <div>
-      <section style={{ padding: '64px 24px' }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-          <SectionHeading title="Join the Club" subtitle="Pick your path. Start building today." />
-        </div>
-      </section>
-      <section style={{ paddingBottom: 80 }}>
-        <div style={{ maxWidth: 880, margin: '0 auto', padding: '0 24px', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24 }}>
-          {tiers.map(t => (
-            <div key={t.name} style={{ borderRadius: 12, padding: 32, border: t.hl ? '1px solid #E8650A' : '1px solid #3A3A3A', background: t.hl ? 'linear-gradient(180deg, rgba(232,101,10,.10), transparent)' : '#2A2A2A' }}>
-              {t.hl && <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.07em', color: '#E8650A', background: 'rgba(232,101,10,.10)', padding: '5px 12px', borderRadius: 9999, marginBottom: 14 }}>Most Popular</span>}
-              <h3 style={{ margin: 0, fontSize: 24, fontWeight: 700, color: '#fff' }}>{t.name}</h3>
-              <p style={{ color: '#A0A0A0', marginTop: 8, marginBottom: 24 }}>{t.desc}</p>
-              <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px' }}>
-                {t.features.map(f => (
-                  <li key={f} style={{ display: 'flex', gap: 10, padding: '6px 0', color: '#F5F5F5', fontSize: 14 }}>
-                    <Icon name="check" size={18} />{f}
-                  </li>
-                ))}
-              </ul>
-              <CTAButton variant={t.hl ? 'primary' : 'secondary'} style={{ width: '100%' }}>Get Started →</CTAButton>
-            </div>
-          ))}
-        </div>
-      </section>
-      <section style={{ background: '#1A1A1A', padding: '64px 24px' }}>
-        <div style={{ maxWidth: 720, margin: '0 auto' }}>
-          <SectionHeading title="How It Works" />
-          <div style={{ marginTop: 48 }}>
-            {[['1', 'Subscribe on Patreon', 'Choose your tier and join in under 2 minutes.'],
-              ['2', 'Get Instant Access', 'Unlock the full content library — podcast, labs, playbooks.'],
-              ['3', 'Start Building', 'Follow the roadmap, join live sessions, level up your career.']].map(([s, t, d]) => (
-              <div key={s} style={{ display: 'flex', gap: 20, alignItems: 'flex-start', padding: '14px 0' }}>
-                <div style={{ width: 40, height: 40, borderRadius: 9999, background: '#E8650A', color: '#fff', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{s}</div>
-                <div>
-                  <h4 style={{ margin: 0, color: '#fff', fontWeight: 700, fontSize: 17 }}>{t}</h4>
-                  <p style={{ margin: '4px 0 0', color: '#A0A0A0' }}>{d}</p>
+      <section className="py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading eyebrow="Membership" title="Join the Club" subtitle="One membership, every course. Pick a cadence." centered={false} />
+          <div className="mt-12 grid md:grid-cols-2 gap-6 max-w-4xl">
+            {plans.map((p) => (
+              <div key={p.name} className="rounded-xl border border-brand-gray-light bg-brand-gray p-8 flex flex-col">
+                <p className="font-mono text-xs text-brand-text-dim">{p.name}</p>
+                <div className="mt-3 flex items-baseline gap-2">
+                  <span className={`text-4xl font-medium tracking-tight tabular-nums ${p.lead ? 'text-brand-orange-light' : ''}`}>{p.price}</span>
+                  <span className="text-sm text-brand-text-muted">{p.per}</span>
                 </div>
+                <p className="mt-3 text-sm text-brand-text-muted">{p.desc}</p>
+                <ul className="mt-6 space-y-2.5 flex-1">
+                  {p.features.map((f) => (
+                    <li key={f} className="flex items-center gap-2.5 text-sm">
+                      <Icon name="check" size={16} className="text-brand-text-dim" />{f}
+                    </li>
+                  ))}
+                </ul>
+                <CTAButton variant={p.lead ? 'primary' : 'secondary'} className="mt-8 w-full">
+                  {p.lead ? 'Join annual, $70 a year' : 'Join monthly, $9.99'}
+                </CTAButton>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+      <section className="bg-brand-dark-alt py-16 md:py-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading title="How it works" centered={false} />
+          <ol className="mt-10 border-t border-brand-gray-light">
+            {steps.map(([n, t, d]) => (
+              <li key={n} className="grid grid-cols-[44px_1fr] gap-4 py-5 border-b border-brand-gray-light">
+                <Tag>{`0${n}`}</Tag>
+                <div>
+                  <h3 className="text-base font-medium">{t}</h3>
+                  <p className="mt-1 text-sm text-brand-text-muted">{d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
     </div>
@@ -142,26 +168,28 @@ function JoinPage() {
 
 function FAQPage() {
   const items = [
-    { q: 'What is GRC engineering?', a: 'GRC engineering is the practice of building automated, scalable systems for governance, risk, and compliance instead of relying on manual checklists and spreadsheets. GRC engineers use IaC, cloud-native tools, CI/CD, and APIs to embed compliance directly into the technology stack.' },
-    { q: 'How do I break into GRC engineering?', a: 'Start by learning the fundamentals of cloud platforms (AWS, Azure, or GCP) and common compliance frameworks like SOC 2, ISO 27001, or FedRAMP. Then build hands-on skills in IaC, scripting, and automation. Join the Club for labs, mock interviews, and a community on the same path.' },
-    { q: 'Is this only about AWS?', a: 'No — we cover AWS, Azure, and GCP. While AWS is the primary platform for many of our labs, we regularly cover Azure and GCP as well. The principles, frameworks, and engineering mindset apply across all major cloud providers.' },
-    { q: 'Do I need coding experience?', a: 'No prior coding experience is required. Our labs start from the fundamentals and build up. You will learn automation, scripting, and infrastructure-as-code as part of the engineering journey.' },
-    { q: 'Can I cancel anytime?', a: 'Absolutely. Your Patreon membership can be cancelled at any time with no penalties. You will retain access through the end of your billing period.' },
+    { q: 'What is GRC engineering?', a: 'GRC engineering is the practice of building automated, scalable systems for governance, risk and compliance instead of relying on manual checklists and spreadsheets. GRC engineers use IaC, cloud-native tools, CI/CD and APIs to embed compliance directly into the technology stack.' },
+    { q: 'How do I break into GRC engineering?', a: 'Start by learning the fundamentals of one cloud platform and common compliance frameworks like SOC 2, ISO 27001 or FedRAMP. Then build hands-on skills in IaC, scripting and automation. Join the Club for labs, mock interviews and a community on the same path.' },
+    { q: 'Is this only about AWS?', a: 'No. AWS is the primary platform for many of the labs, and Azure and GCP are covered as well. The principles, frameworks and engineering mindset apply across all major cloud providers.' },
+    { q: 'Do I need coding experience?', a: 'No. The labs start from the fundamentals and build up. You learn scripting and infrastructure as code as part of the path.' },
+    { q: 'Can I cancel anytime?', a: 'Yes. Cancel at any time with no penalties, and keep access through the end of your billing period.' },
   ];
   const [open, setOpen] = React.useState(0);
   return (
-    <section style={{ padding: '64px 24px' }}>
-      <div style={{ maxWidth: 720, margin: '0 auto' }}>
-        <SectionHeading title="Common Questions" />
-        <div style={{ marginTop: 40, display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <section className="py-16 md:py-24">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeading title="Common questions" centered={false} />
+        <div className="mt-10 flex flex-col gap-3">
           {items.map((it, i) => (
-            <div key={i} style={{ background: '#2A2A2A', borderRadius: 12, border: '1px solid #3A3A3A', overflow: 'hidden' }}>
-              <button onClick={() => setOpen(open === i ? -1 : i)}
-                style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 20, background: 'transparent', border: 'none', color: '#fff', fontSize: 16, fontWeight: 600, textAlign: 'left', cursor: 'pointer' }}>
+            <div key={i} className="bg-brand-gray rounded-xl border border-brand-gray-light hover:border-brand-text-dim/40 transition-colors duration-150 overflow-hidden">
+              <button
+                onClick={() => setOpen(open === i ? -1 : i)}
+                className="w-full flex justify-between items-center gap-4 p-5 text-left text-base font-medium cursor-pointer"
+              >
                 <span>{it.q}</span>
-                <span style={{ color: '#E8650A', transform: open === i ? 'rotate(180deg)' : 'none', transition: 'transform 200ms' }}>▾</span>
+                <Icon name="chevron-down" size={16} className={`text-brand-text-dim transition-transform duration-150 ${open === i ? 'rotate-180' : ''}`} />
               </button>
-              {open === i && <p style={{ padding: '0 20px 20px', margin: 0, color: '#A0A0A0', lineHeight: 1.65 }}>{it.a}</p>}
+              {open === i && <p className="px-5 pb-5 text-brand-text-muted text-[15px] leading-relaxed">{it.a}</p>}
             </div>
           ))}
         </div>

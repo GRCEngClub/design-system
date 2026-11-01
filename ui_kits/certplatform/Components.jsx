@@ -1,312 +1,358 @@
-/* Certplatform UI Kit — Academy surface */
-/* Shares dark/orange brand system with the marketing site but has a
-   product UX: dashboard, course list, lesson player, progress. */
+/* Certplatform UI Kit — Academy surface (Babel JSX + Tailwind CDN).
+   Mirrors cert-platform/frontend as of 2026-11-01: components/NavBar.tsx and
+   pages/learner/Dashboard.tsx. Production is the source of truth. */
 
 const { useState, useEffect, useRef } = React;
 
-/* ---- tokens ---- */
+/* ---- tokens (same hexes as tailwind.config.js; for the rare inline style) ---- */
 const ORANGE = '#E8650A';
 const ORANGE_LIGHT = '#FF8533';
-const DARK = '#0D0D0D';
-const DARK_ALT = '#1A1A1A';
-const GRAY = '#2A2A2A';
-const GRAY_LIGHT = '#3A3A3A';
-const TEXT = '#F5F5F5';
-const MUTED = '#A0A0A0';
+const DARK = '#111110';
+const DARK_ALT = '#161514';
+const GRAY = '#1C1B19';
+const GRAY_LIGHT = '#2B2925';
+const TEXT = '#EFE9DE';
+const MUTED = '#AAA398';
+const DIM = '#8A847A';
 
-const Icon = ({ name, size = 20, color, style }) => (
-  <i data-lucide={name} style={{ width: size, height: size, color, display: 'inline-block', verticalAlign: 'middle', ...style }} />
-);
-
-const AcademyButton = ({ children, variant = 'primary', onClick, size = 'md', icon, style }) => {
-  const sizes = {
-    sm: { padding: '8px 14px', fontSize: 13 },
-    md: { padding: '12px 20px', fontSize: 15 },
-    lg: { padding: '16px 28px', fontSize: 17 },
-  };
-  const variants = {
-    primary: { background: ORANGE, color: '#fff', border: '1px solid transparent',
-      boxShadow: '0 6px 18px rgba(232,101,10,0.25)' },
-    secondary: { background: 'transparent', color: ORANGE, border: `1px solid ${ORANGE}` },
-    ghost: { background: GRAY, color: TEXT, border: `1px solid ${GRAY_LIGHT}` },
-  };
+// Lucide line icon, stroke 1.5, in the color of its text role.
+const Icon = ({ name, size = 20, strokeWidth = 1.5, className = '', style }) => {
+  useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
   return (
-    <button onClick={onClick} style={{
-      ...sizes[size], ...variants[variant],
-      display: 'inline-flex', alignItems: 'center', gap: 10,
-      fontWeight: 700, borderRadius: 10, cursor: 'pointer',
-      fontFamily: 'inherit', transition: 'all 150ms',
-      ...style,
-    }}
-    onMouseEnter={e => { if (variant === 'primary') e.currentTarget.style.background = ORANGE_LIGHT; }}
-    onMouseLeave={e => { if (variant === 'primary') e.currentTarget.style.background = ORANGE; }}
+    <i
+      data-lucide={name}
+      strokeWidth={strokeWidth}
+      className={className}
+      style={{ width: size, height: size, display: 'inline-flex', verticalAlign: 'middle', ...style }}
+    />
+  );
+};
+
+// Primary: orange fill, dark text, no shadow. Secondary: raised surface + hairline.
+const AcademyButton = ({ children, variant = 'primary', onClick, size = 'md', icon, className = '', disabled }) => {
+  const sizes = { sm: 'h-8 px-3 text-xs', md: 'h-10 px-5 text-sm', lg: 'h-12 px-6 text-sm' };
+  const variants = {
+    primary: 'bg-brand-orange text-brand-dark hover:bg-brand-orange-light',
+    secondary: 'border border-brand-gray-light bg-brand-gray-light/60 text-brand-text hover:bg-brand-gray-light',
+    ghost: 'border border-brand-gray-light bg-brand-gray text-brand-text hover:bg-brand-gray-light',
+    disabled: 'bg-brand-gray text-brand-text-muted cursor-default',
+  };
+  const v = disabled ? 'disabled' : variant;
+  return (
+    <button
+      onClick={disabled ? undefined : onClick}
+      className={`inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors duration-150 ${disabled ? '' : 'active:scale-[0.98] cursor-pointer'} ${sizes[size]} ${variants[v]} ${className}`}
     >
-      {icon && <Icon name={icon} size={size === 'sm' ? 14 : 16} />}
+      {icon && <Icon name={icon} size={16} />}
       {children}
     </button>
   );
 };
 
-const Chip = ({ children, tone = 'orange' }) => (
-  <span style={{
-    display: 'inline-flex', alignItems: 'center', gap: 6,
-    padding: '5px 10px', borderRadius: 9999,
-    background: tone === 'orange' ? 'rgba(232,101,10,0.12)' : 'rgba(160,160,160,0.12)',
-    color: tone === 'orange' ? ORANGE : MUTED,
-    fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em',
-  }}>{children}</span>
+// Control-ID tag: CGE-P, D4, AC-2. The old orange uppercase Chip renders as this now.
+const Tag = ({ children, className = '' }) => (
+  <span className={`inline-flex h-5 w-fit items-center rounded bg-brand-gray-light px-1.5 font-mono text-[11px] leading-4 text-brand-text-muted ${className}`}>
+    {children}
+  </span>
+);
+const Chip = Tag;
+
+// NavBar.tsx Avatar: raised surface, hairline, initials at 500.
+const Avatar = ({ initials, size = 32 }) => (
+  <div
+    className="inline-flex flex-shrink-0 items-center justify-center rounded-full border border-brand-gray-light bg-brand-gray-light text-sm font-medium text-brand-text-muted"
+    style={{ width: size, height: size }}
+    aria-hidden
+  >
+    {initials}
+  </div>
 );
 
-const Avatar = ({ initials, size = 36 }) => (
-  <div style={{
-    width: size, height: size, borderRadius: 9999,
-    background: `linear-gradient(135deg, ${ORANGE}, ${ORANGE_LIGHT})`,
-    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-    color: '#fff', fontWeight: 800, fontSize: size * 0.38, flexShrink: 0,
-  }}>{initials}</div>
-);
-
-/* ==== top nav for the cert platform ==== */
+/* ==== NavBar.tsx: 56px bar, 32px tabs, active tab is a raised surface step ==== */
 const AcademyNav = ({ current, go, user }) => {
   const items = [
     ['dashboard', 'Dashboard', 'layout-dashboard'],
     ['course', 'Course', 'book-open'],
     ['labs', 'Labs', 'flask-conical'],
     ['exam', 'Exam', 'clipboard-check'],
+    [null, 'Tools', 'wrench'],
+    [null, 'Events', 'calendar-days'],
+    [null, 'Help', 'life-buoy'],
   ];
   return (
-    <nav style={{
-      position: 'sticky', top: 0, zIndex: 50,
-      background: 'rgba(13,13,13,0.92)', backdropFilter: 'blur(12px)',
-      borderBottom: `1px solid ${GRAY_LIGHT}50`,
-    }}>
-      <div style={{
-        maxWidth: 1280, margin: '0 auto', padding: '0 24px', height: 64,
-        display: 'flex', alignItems: 'center', gap: 40,
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
-          <img src="../../assets/logo.jpeg" alt="" style={{ width: 36, height: 36, borderRadius: 8, objectFit: 'cover' }} />
-          <div style={{ whiteSpace: 'nowrap' }}>
-            <div style={{ fontSize: 14, fontWeight: 800, lineHeight: 1 }}>GRC Eng Academy</div>
-            <div style={{ fontSize: 10, color: ORANGE, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', marginTop: 3 }}>CGE-P Program</div>
-          </div>
-        </div>
-        <div style={{ flex: 1, display: 'flex', gap: 6 }}>
+    <nav className="sticky top-0 z-40 border-b border-brand-gray-light/40 bg-brand-dark">
+      <div className="mx-auto flex h-14 max-w-7xl items-center gap-6 px-4 sm:px-6 lg:px-8">
+        <a onClick={() => go('dashboard')} className="flex flex-shrink-0 items-center gap-2.5 cursor-pointer">
+          <img src="../../assets/logo.jpeg" alt="" className="h-8 w-8 rounded-md object-cover" />
+          <div className="hidden whitespace-nowrap text-sm font-medium leading-none sm:block">GRC Eng Academy</div>
+        </a>
+        <div className="hidden flex-1 items-center gap-0.5 md:flex">
           {items.map(([id, label, icon]) => {
-            const active = current === id;
+            const active = id && current === id;
             return (
-              <button key={id} onClick={() => go(id)} style={{
-                display: 'inline-flex', alignItems: 'center', gap: 8,
-                padding: '8px 14px', borderRadius: 8,
-                background: active ? 'rgba(232,101,10,0.12)' : 'transparent',
-                color: active ? ORANGE : MUTED,
-                border: 'none', fontFamily: 'inherit', fontSize: 14, fontWeight: 600, cursor: 'pointer',
-              }}>
+              <button
+                key={label}
+                onClick={id ? () => go(id) : undefined}
+                className={`inline-flex h-8 items-center gap-2 rounded-lg px-2.5 text-sm font-medium transition-colors duration-150 cursor-pointer ${
+                  active ? 'bg-brand-gray-light text-brand-text' : 'text-brand-text-muted hover:bg-brand-gray-light/60 hover:text-brand-text'
+                }`}
+              >
                 <Icon name={icon} size={16} />
                 {label}
               </button>
             );
           })}
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, whiteSpace: 'nowrap' }}>
-            <div style={{
-              width: 8, height: 8, borderRadius: 9999,
-              background: ORANGE, boxShadow: `0 0 0 3px rgba(232,101,10,0.2)`,
-            }} />
-            <span style={{ fontSize: 13, color: MUTED, fontWeight: 600 }}>Builder tier</span>
+        <div className="hidden flex-shrink-0 items-center gap-5 md:flex">
+          <div className="flex items-center gap-2 whitespace-nowrap">
+            <span className="h-2 w-2 rounded-full bg-brand-orange ring-4 ring-brand-orange/20" aria-hidden />
+            <span className="text-xs font-medium text-brand-text-muted">Builder tier</span>
           </div>
-          <Avatar initials={user || 'JR'} size={36} />
+          <button className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-brand-text-muted transition-colors duration-150 hover:text-brand-text cursor-pointer">
+            <Avatar initials={user || 'MR'} />
+            <Icon name="chevron-down" size={16} />
+          </button>
         </div>
       </div>
     </nav>
   );
 };
 
-/* ==== progress bar ==== */
-const Progress = ({ value, label, showValue = true, size = 'md' }) => {
-  const h = size === 'sm' ? 4 : 8;
+/* ==== flat progress bar: 4px, raised track, orange fill (or meta color when quiet) ==== */
+const Progress = ({ value, label, showValue = true, quiet = false, lead = false }) => (
+  <div>
+    {label && (
+      <div className="mb-2 flex justify-between text-[13px] text-brand-text-muted">
+        <span>{label}</span>
+        {showValue && (
+          <span className={`tabular-nums ${lead ? 'font-medium text-brand-orange-light' : ''}`}>{Math.round(value)}%</span>
+        )}
+      </div>
+    )}
+    <div className="h-1 w-full overflow-hidden rounded-sm bg-brand-gray-light">
+      <div className={`h-full rounded-sm ${quiet ? 'bg-brand-text-dim' : 'bg-brand-orange'}`} style={{ width: `${value}%` }} />
+    </div>
+  </div>
+);
+
+/* ==== Dashboard.tsx helpers ==== */
+const StatTile = ({ value, label }) => (
+  <div className="rounded-lg border border-brand-gray-light bg-brand-dark p-3">
+    <p className="text-[22px] font-medium leading-none tabular-nums">{value}</p>
+    <p className="mt-1.5 text-xs text-brand-text-dim">{label}</p>
+  </div>
+);
+
+// Conic-gradient donut: the single sanctioned inline style in the Dashboard.
+const ProgressRing = ({ value }) => {
+  const v = Math.min(100, Math.max(0, value));
   return (
-    <div>
-      {label && (
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: MUTED, fontWeight: 600, marginBottom: 8 }}>
-          <span>{label}</span>
-          {showValue && <span style={{ color: ORANGE, fontWeight: 700 }}>{Math.round(value)}%</span>}
-        </div>
-      )}
-      <div style={{ width: '100%', height: h, background: GRAY, borderRadius: 9999, overflow: 'hidden' }}>
-        <div style={{
-          width: `${value}%`, height: '100%',
-          background: `linear-gradient(90deg, ${ORANGE}, ${ORANGE_LIGHT})`,
-          borderRadius: 9999, transition: 'width 400ms',
-        }} />
+    <div
+      className="flex h-[72px] w-[72px] flex-shrink-0 items-center justify-center rounded-full"
+      style={{ background: `conic-gradient(${ORANGE} 0% ${v}%, ${GRAY_LIGHT} ${v}% 100%)` }}
+      role="img"
+      aria-label={`${v} percent complete`}
+    >
+      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-gray">
+        <span className="text-[15px] font-medium tabular-nums">{v}%</span>
       </div>
     </div>
   );
 };
 
-/* ==== dashboard / home ==== */
-const Dashboard = ({ go, progress }) => {
-  const chapters = [
-    { id: 1, title: 'Foundations', lessons: 5, done: 5, eyebrow: 'Chapter 01' },
-    { id: 2, title: 'Infrastructure as Code', lessons: 5, done: 3, eyebrow: 'Chapter 02' },
-    { id: 3, title: 'Policy as Code', lessons: 5, done: 0, eyebrow: 'Chapter 03' },
-    { id: 4, title: 'CI/CD & Evidence', lessons: 4, done: 0, eyebrow: 'Chapter 04' },
-  ];
+// The moment: the CGE-P path drawn as seven domains.
+const CGEP_DOMAINS = [
+  { title: 'GRC engineering foundations', len: '52 min', state: 'done' },
+  { title: 'Infrastructure as code', len: '1 h 10', state: 'done' },
+  { title: 'Policy as code', len: '58 min', state: 'done' },
+  { title: 'CI/CD for GRC engineers', len: '14 of 46 min', state: 'now' },
+  { title: 'Cloud-native security and monitoring', len: '1 h 04', state: 'todo' },
+  { title: 'OSCAL and continuous authorization', len: '49 min', state: 'todo' },
+  { title: 'Applied GRC engineering', len: '41 min', state: 'todo' },
+];
+
+const DomainRows = ({ domains }) => (
+  <ol className="mt-4 border-t border-brand-gray-light">
+    {domains.map((m, i) => (
+      <li key={m.title} className="grid h-9 grid-cols-[16px_44px_1fr_auto] items-center gap-2.5 border-b border-brand-gray-light text-sm">
+        <span
+          className={`grid h-4 w-4 place-items-center rounded-full border-[1.5px] ${
+            m.state === 'done' ? 'border-emerald-400 bg-emerald-400' : m.state === 'now' ? 'border-brand-orange' : 'border-brand-gray-light'
+          }`}
+          aria-label={m.state === 'done' ? 'Complete' : m.state === 'now' ? 'In progress' : 'Not started'}
+        >
+          {m.state === 'done' && <Icon name="check" size={11} strokeWidth={2.5} className="text-brand-dark" />}
+          {m.state === 'now' && <span className="h-1.5 w-1.5 rounded-full bg-brand-orange" />}
+        </span>
+        <Tag>{`D${i + 1}`}</Tag>
+        <span className={`truncate ${m.state === 'todo' ? 'text-brand-text-muted' : 'text-brand-text'}`}>{m.title}</span>
+        <span className={`font-mono text-[11px] ${m.state === 'now' ? 'text-brand-orange-light' : 'text-brand-text-dim'}`}>{m.len}</span>
+      </li>
+    ))}
+  </ol>
+);
+
+const CourseProgressCard = ({ title, desc, pct, primary, domains, foot, onClick }) => (
+  <a
+    onClick={onClick}
+    className={`flex flex-col rounded-xl border border-brand-gray-light bg-brand-gray p-6 transition-colors duration-150 hover:border-brand-text-dim/50 cursor-pointer ${domains ? 'sm:col-span-2' : ''}`}
+  >
+    <div className="flex items-start justify-between gap-3">
+      <h3 className="text-base font-medium leading-[22px]">{title}</h3>
+      {typeof pct === 'number' ? (
+        <span className={`flex-shrink-0 text-sm tabular-nums ${primary ? 'font-medium text-brand-orange' : 'text-brand-text-muted'}`}>{pct}%</span>
+      ) : (
+        <span className="flex-shrink-0 font-mono text-xs text-brand-text-dim whitespace-nowrap">{pct}</span>
+      )}
+    </div>
+    {desc && <p className="mt-1.5 line-clamp-2 text-sm text-brand-text-muted">{desc}</p>}
+    {domains && <DomainRows domains={domains} />}
+    {typeof pct === 'number' && !domains && (
+      <div className="mt-4 h-1 overflow-hidden rounded-sm bg-brand-gray-light">
+        <div className={`h-full rounded-sm ${primary ? 'bg-brand-orange' : 'bg-brand-text-dim'}`} style={{ width: `${pct}%` }} />
+      </div>
+    )}
+    {foot && (
+      <div className={`${domains ? 'mt-3' : 'mt-2'} flex justify-between text-xs text-brand-text-dim`}>
+        <span>{foot[0]}</span><span>{foot[1]}</span>
+      </div>
+    )}
+  </a>
+);
+
+const RailCard = ({ icon, title, children, link, onClick }) => (
+  <a onClick={onClick} className={`block rounded-xl border border-brand-gray-light bg-brand-gray p-6 ${link ? 'transition-colors duration-150 hover:border-brand-text-dim/50 cursor-pointer' : ''}`}>
+    <div className="mb-3 flex items-center gap-2">
+      <Icon name={icon} size={16} className="text-brand-text-dim" />
+      <h2 className="text-[15px] font-medium">{title}</h2>
+    </div>
+    {children}
+    {link && (
+      <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand-orange">
+        {link} <Icon name="arrow-right" size={16} />
+      </span>
+    )}
+  </a>
+);
+
+/* ==== Dashboard.tsx ==== */
+const Dashboard = ({ go }) => {
+  const done = CGEP_DOMAINS.filter((d) => d.state === 'done').length;
+  const pct = Math.round((done / CGEP_DOMAINS.length) * 100);
   return (
     <div>
-      {/* Hero */}
-      <section style={{ background: DARK, padding: '64px 24px 48px', borderBottom: `1px solid ${GRAY_LIGHT}50` }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 420px', gap: 48, alignItems: 'center' }}>
+      {/* HERO */}
+      <section className="border-b border-brand-gray-light/40">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
+          <div className="grid gap-8 lg:grid-cols-[1fr_400px] lg:items-center">
             <div>
-              <Chip>Welcome back, James</Chip>
-              <h1 style={{
-                fontSize: 52, fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.025em',
-                margin: '20px 0 16px', color: '#fff',
-              }}>
-                You're <span style={{ color: ORANGE }}>32%</span> of the way <br /> to CGE-P.
+              <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-brand-text-dim">
+                <Tag>CGE-P</Tag>
+                <span>Certified GRC Engineer, Practitioner</span>
+              </div>
+              <h1 className="mt-4 text-3xl font-medium leading-[1.1] tracking-[-0.02em] md:text-[40px]">
+                <span className="tabular-nums text-brand-orange">{pct}%</span> to the exam
               </h1>
-              <p style={{ fontSize: 18, color: MUTED, lineHeight: 1.6, maxWidth: 620, margin: 0 }}>
-                Pick up where you left off — Chapter 02, Lesson 03: <i>IaC as Compliance Evidence.</i>
+              <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-brand-text-muted">
+                Three of seven domains done. Finish CI/CD for GRC engineers and the two after it, then the 60-question open-book exam unlocks.
               </p>
-              <div style={{ display: 'flex', gap: 12, marginTop: 28 }}>
-                <AcademyButton size="lg" icon="play" onClick={() => go('course')}>Resume Chapter 02</AcademyButton>
-                <AcademyButton size="lg" variant="secondary" onClick={() => go('course')}>View roadmap</AcademyButton>
+              <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
+                <AcademyButton size="lg" onClick={() => go('lesson')}>
+                  Continue module 4 <Icon name="arrow-right" size={16} />
+                </AcademyButton>
+                <a onClick={() => go('exam')} className="inline-flex items-center gap-1 text-sm font-medium text-brand-orange-light hover:text-brand-orange cursor-pointer">
+                  Exam readiness
+                </a>
               </div>
             </div>
+
             {/* Progress card */}
-            <div style={{ background: GRAY, border: `1px solid ${GRAY_LIGHT}`, borderRadius: 20, padding: 28 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 18 }}>
+            <div className="rounded-2xl border border-brand-gray-light bg-brand-gray p-6">
+              <div className="flex items-start justify-between gap-4">
                 <div>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: ORANGE, textTransform: 'uppercase', letterSpacing: '0.12em' }}>Your path</div>
-                  <div style={{ fontSize: 22, fontWeight: 800, color: '#fff', marginTop: 4 }}>CGE-P Certification</div>
+                  <p className="font-mono text-xs text-brand-text-dim">Your path</p>
+                  <p className="mt-0.5 text-base font-medium">CGE-P certification</p>
                 </div>
-                <div style={{
-                  width: 72, height: 72, borderRadius: '50%',
-                  background: `conic-gradient(${ORANGE} 0% 32%, ${GRAY_LIGHT} 32% 100%)`,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}>
-                  <div style={{
-                    width: 56, height: 56, borderRadius: '50%', background: GRAY,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 18, fontWeight: 900, color: '#fff',
-                  }}>32%</div>
-                </div>
+                <ProgressRing value={pct} />
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, marginBottom: 22 }}>
-                {[['8', 'Lessons done'], ['25', 'Lessons left'], ['5.2h', 'Time logged']].map(([n, l]) => (
-                  <div key={l} style={{ background: DARK, border: `1px solid ${GRAY_LIGHT}`, borderRadius: 10, padding: '12px 14px' }}>
-                    <div style={{ fontSize: 22, fontWeight: 900, color: '#fff', lineHeight: 1 }}>{n}</div>
-                    <div style={{ fontSize: 11, color: MUTED, marginTop: 4, textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>{l}</div>
-                  </div>
-                ))}
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: MUTED }}>
-                <Icon name="flame" size={16} color={ORANGE} />
-                <span><b style={{ color: '#fff' }}>6-day</b> streak — keep it going.</span>
+              <div className="mt-4 grid grid-cols-3 gap-2">
+                <StatTile value={String(done)} label="Modules done" />
+                <StatTile value={String(CGEP_DOMAINS.length - done)} label="Modules left" />
+                <StatTile value="2" label="Courses" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Chapters grid */}
-      <section style={{ padding: '48px 24px', background: DARK_ALT }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 28 }}>
-            <div>
-              <div style={{ fontSize: 12, fontWeight: 700, color: ORANGE, textTransform: 'uppercase', letterSpacing: '0.12em' }}>Your course</div>
-              <h2 style={{ fontSize: 32, fontWeight: 900, margin: '4px 0 0', letterSpacing: '-0.02em' }}>Chapters</h2>
+      {/* MAIN */}
+      <div className="bg-brand-dark-alt">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+          <div className="mb-8 flex items-center justify-between gap-3 rounded-xl border border-brand-gray-light bg-brand-gray p-4 text-sm">
+            <div className="flex items-center gap-3">
+              <span className="h-2 w-2 rounded-full bg-brand-orange ring-4 ring-brand-orange/20" aria-hidden />
+              <span><span className="font-medium">Patreon member, active.</span> Free enrollment in every course. Membership re-checked hourly.</span>
             </div>
-            <button onClick={() => go('course')} style={{ background: 'none', border: 'none', color: MUTED, fontFamily: 'inherit', fontSize: 14, fontWeight: 600, cursor: 'pointer', display: 'inline-flex', gap: 6, alignItems: 'center' }}>
-              View all <Icon name="arrow-right" size={14} />
-            </button>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
-            {chapters.map(c => {
-              const pct = (c.done / c.lessons) * 100;
-              const complete = pct === 100;
-              const active = c.done > 0 && !complete;
-              return (
-                <button key={c.id} onClick={() => go('course')} style={{
-                  textAlign: 'left', background: GRAY,
-                  border: `1px solid ${active ? ORANGE : GRAY_LIGHT}`,
-                  borderRadius: 16, padding: 20, cursor: 'pointer',
-                  fontFamily: 'inherit', color: TEXT, transition: 'all 200ms',
-                }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
-                    <div style={{ fontSize: 11, fontWeight: 700, color: ORANGE, textTransform: 'uppercase', letterSpacing: '0.12em' }}>{c.eyebrow}</div>
-                    {complete && (
-                      <div style={{ color: ORANGE }}><Icon name="check-circle-2" size={18} /></div>
-                    )}
-                  </div>
-                  <div style={{ fontSize: 19, fontWeight: 800, color: '#fff', marginBottom: 16, lineHeight: 1.25 }}>{c.title}</div>
-                  <Progress value={pct} size="sm" />
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10, fontSize: 12, color: MUTED, fontWeight: 600 }}>
-                    <span>{c.done}/{c.lessons} lessons</span>
-                    <span style={{ color: active ? ORANGE : MUTED }}>{active ? 'In progress' : complete ? 'Complete' : 'Not started'}</span>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
-      {/* Activity + Next up */}
-      <section style={{ padding: '48px 24px 64px', background: DARK }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 24 }}>
-          <div style={{ background: GRAY, border: `1px solid ${GRAY_LIGHT}`, borderRadius: 16, padding: 28 }}>
-            <h3 style={{ fontSize: 20, fontWeight: 800, margin: '0 0 18px' }}>Recent activity</h3>
-            {[
-              { icon: 'check-circle-2', title: 'Completed  - Foundations · Lesson 5', when: '2 days ago', orange: true },
-              { icon: 'flask-conical',   title: 'Started Lab  - Terraform + S3 encryption', when: '3 days ago' },
-              { icon: 'message-circle',  title: 'Posted in community  - OSCAL component question', when: '5 days ago' },
-              { icon: 'award',           title: 'Earned badge  - Foundations Complete', when: '6 days ago', orange: true },
-            ].map((a, i) => (
-              <div key={i} style={{
-                display: 'flex', alignItems: 'center', gap: 14,
-                padding: '14px 0',
-                borderBottom: i < 3 ? `1px solid ${GRAY_LIGHT}` : 'none',
-              }}>
-                <div style={{
-                  width: 36, height: 36, borderRadius: 9999,
-                  background: a.orange ? 'rgba(232,101,10,0.12)' : 'rgba(255,255,255,0.05)',
-                  color: a.orange ? ORANGE : MUTED,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-                }}>
-                  <Icon name={a.icon} size={18} />
+          <div className="grid gap-10 lg:grid-cols-[1fr_340px]">
+            <section>
+              <div className="mb-4 flex items-end justify-between">
+                <div>
+                  <p className="font-mono text-xs text-brand-text-dim">Your path</p>
+                  <h2 className="mt-1 text-xl font-medium tracking-[-0.01em]">My courses</h2>
                 </div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 15, fontWeight: 600, color: '#fff' }}>{a.title}</div>
-                  <div style={{ fontSize: 12, color: MUTED, marginTop: 2 }}>{a.when}</div>
-                </div>
+                <a onClick={() => go('course')} className="inline-flex items-center gap-1 text-sm font-medium text-brand-orange hover:text-brand-orange-light cursor-pointer">
+                  Browse catalog <Icon name="arrow-right" size={16} />
+                </a>
               </div>
-            ))}
-          </div>
-          <div style={{ background: GRAY, border: `1px solid ${ORANGE}`, borderRadius: 16, padding: 28,
-            backgroundImage: 'linear-gradient(180deg, rgba(232,101,10,0.08), transparent)',
-          }}>
-            <Chip>Up next</Chip>
-            <h3 style={{ fontSize: 22, fontWeight: 900, margin: '12px 0 8px', lineHeight: 1.2 }}>
-              IaC as Compliance Evidence
-            </h3>
-            <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.5, margin: '0 0 20px' }}>
-              How Terraform state + signed plans become machine-verifiable evidence. 22 min video + a hands-on lab.
-            </p>
-            <div style={{ display: 'flex', gap: 16, fontSize: 12, color: MUTED, marginBottom: 20 }}>
-              <span style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}><Icon name="clock" size={14}/> 22 min</span>
-              <span style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}><Icon name="flask-conical" size={14}/> 1 lab</span>
-            </div>
-            <AcademyButton size="md" icon="play" style={{ width: '100%', justifyContent: 'center' }} onClick={() => go('course')}>
-              Resume lesson
-            </AcademyButton>
+              <div className="grid gap-5 sm:grid-cols-2">
+                <CourseProgressCard
+                  title="Certified GRC Engineer, Practitioner (CGE-P)"
+                  desc="Seven domains, hands-on labs and a 60-question exam. Capstone required for the credential."
+                  pct={pct}
+                  primary
+                  domains={CGEP_DOMAINS}
+                  foot={['3 of 7 modules · last watched yesterday', 'Exam unlocks after D7']}
+                  onClick={() => go('course')}
+                />
+                <CourseProgressCard
+                  title="Certified GRC Engineer, Azure Specialty (CGE-AZ)"
+                  desc="Ship the whole discipline on Azure. 27 short videos, six labs, a 50-question exam and a graded capstone."
+                  pct={0}
+                  foot={['0 of 7 modules', 'Requires CGE-P']}
+                />
+                <CourseProgressCard title="Certified GRC Engineer, Associate (CGE-A)" desc="The entry credential for people moving into GRC engineering. Enrollment opens on launch." pct="Coming soon" />
+                <CourseProgressCard title="Certified GRC Engineer, AWS Specialty (CGE-AWS)" desc="The same pipeline, built and graded on AWS." pct="Coming soon" />
+              </div>
+            </section>
+
+            <aside className="space-y-6">
+              <RailCard icon="award" title="Certifications">
+                <p className="text-sm text-brand-text-muted">Complete a course to earn your CGE-P credential. Issued automatically when the capstone passes review.</p>
+              </RailCard>
+              <RailCard icon="clock" title="CPE">
+                <div className="flex justify-between text-[13px] text-brand-text-muted">
+                  <span>Total CPE, trailing year</span><span className="font-medium tabular-nums text-brand-text">0 of 30</span>
+                </div>
+                <div className="mt-2 h-1 overflow-hidden rounded-sm bg-brand-gray-light"><div className="h-full w-0 bg-brand-orange" /></div>
+                <p className="mt-2.5 text-xs text-brand-text-dim">Your first renewal is CPE-free. Club articles and live sessions count once you hold a credential.</p>
+              </RailCard>
+              <RailCard icon="flask-conical" title="Hands-on labs" link="Open labs" onClick={() => go('labs')}>
+                <p className="text-sm text-brand-text-muted">Ship real compliance-as-code. Start with the one-time setup guide, then every lab becomes part of your CGE-P portfolio.</p>
+              </RailCard>
+              <RailCard icon="file-text" title="Member tools" link="Open tools">
+                <p className="text-sm text-brand-text-muted">Fill-in builders that turn a framework requirement into a real artifact. Start with AI system documentation.</p>
+              </RailCard>
+            </aside>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
 
-Object.assign(window, { AcademyNav, AcademyButton, Chip, Avatar, Progress, Dashboard, Icon });
+Object.assign(window, {
+  ORANGE, ORANGE_LIGHT, DARK, DARK_ALT, GRAY, GRAY_LIGHT, TEXT, MUTED, DIM,
+  AcademyNav, AcademyButton, Tag, Chip, Avatar, Progress, StatTile, ProgressRing, DomainRows, CGEP_DOMAINS, Dashboard, Icon,
+});

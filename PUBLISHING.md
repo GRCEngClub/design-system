@@ -118,7 +118,7 @@ Add this to your onboarding doc:
 | `SKILL.md` | Agent skill manifest. What Claude Code reads first. |
 | `README.md` | Brand bible: voice, palette, type, layout, iconography, caveats. |
 | `colors_and_type.css` | CSS custom properties + semantic element rules. Drop-in include. |
-| `fonts/inter-{400..900}.woff2` | Vendored Inter — no Google Fonts dependency. |
+| `fonts/inter-{400..900}.woff2`, `fonts/jetbrains-mono-{400,500}.woff2` | Vendored Inter and JetBrains Mono, no Google Fonts dependency. The system uses Inter 400/500 only. |
 | `assets/logo.jpeg` | Square wordmark logo. Nav + favicon usage. |
 | `assets/brand-mark-orange.jpg` | Expressive orange brand mark. Hero/cover usage. |
 | `assets/leadership/` | Team headshots. |

@@ -10,8 +10,11 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="./deck-stage.js"></script>
   <style>
-    html, body { margin: 0; background: #000; font-family: 'Inter', system-ui, sans-serif; color: #F5F5F5; }
-    deck-stage section { background: #0D0D0D; }
+    /* Mono partner face for meta, tags and code. Declared here so the deck does not depend on colors_and_type.css for it. */
+    @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('../fonts/jetbrains-mono-400.woff2') format('woff2'); }
+    @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('../fonts/jetbrains-mono-500.woff2') format('woff2'); }
+    html, body { margin: 0; background: #000; font-family: 'Inter', system-ui, sans-serif; color: #EFE9DE; }
+    deck-stage section { background: #111110; }
   </style>
 </head>
 <body>

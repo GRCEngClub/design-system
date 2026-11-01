@@ -1,17 +1,27 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Depth</title><link rel="stylesheet" href="../colors_and_type.css">
 <style>
-  body { margin:0; padding: 24px; background: var(--bg-page); display:flex; gap:24px; align-items:center; justify-content:center; }
-  .demo { display:flex; flex-direction:column; align-items:center; gap: 10px; }
-  .btn { padding: 12px 24px; border-radius: 8px; background: var(--grc-orange); color:#fff; font-weight:700; font-size:13px; border:0; }
-  .btn.glow { box-shadow: 0 8px 24px rgba(232,101,10,.25); }
-  .btn.glow-hover { box-shadow: 0 12px 32px rgba(232,101,10,.35); }
-  .card { width: 200px; height: 80px; background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; }
-  .card.hov { border-color: rgba(232,101,10,.5); }
-  .label { font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); text-transform:uppercase; letter-spacing:.08em; }
+  body { margin:0; padding: 16px; background: var(--bg-page); display:grid; grid-template-columns: 3fr 2fr; gap: 16px; }
+  .steps { background: var(--bg-section); border-radius: 16px; padding: 16px; }
+  .steps .card { padding: 16px; }
+  .steps .raised { background: var(--bg-raised); border-radius: 8px; padding: 10px 12px; margin-top: 12px; font-size: 13px; color: var(--fg-1); display:flex; justify-content:space-between; }
+  .lbl { display:block; margin-bottom: 8px; }
+  .side { display:flex; flex-direction:column; gap: 12px; }
+  .menu { background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; padding: 6px 0; box-shadow: var(--shadow-menu); width: 180px; }
+  .menu a { display:block; padding: 8px 14px; font-size: 14px; color: var(--fg-2); }
+  .menu a:first-child { color: var(--fg-1); background: var(--bg-raised); }
+  .row { display:flex; gap: 10px; align-items:center; }
 </style></head><body>
-<div class="demo"><button class="btn">no shadow</button><span class="label">none</span></div>
-<div class="demo"><button class="btn glow">CTA · default</button><span class="label">orange/25 glow</span></div>
-<div class="demo"><button class="btn glow-hover">CTA · hover</button><span class="label">orange/35 glow</span></div>
-<div class="demo"><div class="card"></div><span class="label">card · border only</span></div>
-<div class="demo"><div class="card hov"></div><span class="label">card · hover orange/50</span></div>
+<div class="steps">
+  <span class="meta lbl">alt section #161514</span>
+  <div class="card">
+    <span class="meta lbl">card #1C1B19 + hairline #2B2925</span>
+    <div class="raised"><span>raised surface #2B2925</span><span class="tag">SC-7</span></div>
+  </div>
+</div>
+<div class="side">
+  <div class="row"><button class="btn btn-primary btn-sm">No shadow</button><button class="btn btn-secondary btn-sm">No shadow</button></div>
+  <span class="meta">Buttons and cards carry no shadow. Depth is the step from one surface to the next, and a hairline.</span>
+  <div class="menu"><a>Profile</a><a>Sign out</a></div>
+  <span class="meta">The one exception: a floating menu gets a soft neutral shadow, never a colored one.</span>
+</div>
 </body></html>
