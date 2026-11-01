@@ -1,106 +1,198 @@
-// Page: Home — recreates grcengclub.com/ key sections
+// Page: Home. Mirrors grcengclub/src/pages/Home.tsx (2026-11-01): the hero with the
+// pipeline run, then the alternating page / alt sections in production order.
+// The member globe, events and Patreon sections are left out of the kit.
+const HOME_BENEFITS = [
+  { icon: 'zap', title: 'An engineering mindset', desc: 'Move from checkbox GRC to building automated systems.' },
+  { icon: 'target', title: 'A clear career path', desc: 'A structured roadmap from where you are to where you want to be.' },
+  { icon: 'trending-up', title: 'Real outcomes', desc: 'Members land roles, build portfolios and level up every month.' },
+  { icon: 'shield', title: 'A crew', desc: 'Builders who push each other forward every week.' },
+];
+
+const HOME_CONTENT_TYPES = [
+  { icon: 'mic', title: 'Private podcast', desc: 'Weekly episodes on GRC engineering concepts, career strategy and what is changing in the industry.' },
+  { icon: 'message-circle', title: 'Live Q&A', desc: 'Live sessions every two weeks where you get direct answers to your toughest GRC questions.' },
+  { icon: 'flask-conical', title: 'Hands-on labs', desc: 'Build real AWS compliance infrastructure: Config rules, Lambda automation, dashboards.' },
+  { icon: 'users', title: 'Mock interviews', desc: 'Practice with real GRC interview scenarios and get specific feedback on your resume.' },
+  { icon: 'book-open', title: 'Playbooks', desc: 'Step-by-step guides for LinkedIn positioning, portfolio building and career moves.' },
+  { icon: 'monitor-play', title: 'Live builder sessions', desc: 'Members build real projects together: deploying infrastructure, automating pipelines, learning by doing.' },
+];
+
+const HOME_VIDEOS = [
+  { id: 'UE5imcusMPw', title: 'GRC engineer salary: $70K to $330K+ (2026 data)', type: 'Clip' },
+  { id: 'PnRE8gqadrM', title: 'The "lead auditor" scam, niche domination and why GRC budgets are shrinking', type: 'Full episode' },
+  { id: '9Dc14mbJJCU', title: 'GRC certifications ranked for 2026: which ones matter?', type: 'Clip' },
+  { id: 'q8_DB4CvoSE', title: 'Day in the life of a GRC engineer (2026)', type: 'Clip' },
+];
+
 function HomePage({ go }) {
   return (
     <div>
-      {/* Hero */}
-      <section style={{ position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(232,101,10,.10), transparent 50%)' }} />
-        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '120px 24px', position: 'relative' }}>
-          <div style={{ maxWidth: 800 }}>
-            <h1 style={{ margin: 0, fontSize: 'clamp(40px, 6vw, 76px)', fontWeight: 900, letterSpacing: '-.02em', lineHeight: 1.05, color: '#fff' }}>
-              GRC Engineering<span style={{ color: '#E8650A' }}> Club</span>
-            </h1>
-            <p style={{ marginTop: 24, fontSize: 22, color: '#A0A0A0', lineHeight: 1.55 }}>
-              Not just a book club. <span style={{ color: '#fff', fontWeight: 600 }}>A movement.</span><br />
-              From checkbox GRC to engineered systems.
-            </p>
-            <div style={{ marginTop: 36, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-              <CTAButton size="lg" onClick={() => go('join')}>Join the Club</CTAButton>
-              <CTAButton size="lg" variant="secondary" onClick={() => go('academy')}>See What You Get →</CTAButton>
-            </div>
-            <a style={{ marginTop: 18, display: 'inline-flex', gap: 6, alignItems: 'center', color: '#A0A0A0', fontSize: 13, fontWeight: 500, cursor: 'pointer' }}>
-              New to GRC engineering? Start with our free 101 guide →
-            </a>
+      {/* Hero: headline, two actions, and the product view rising from the bottom edge */}
+      <section className="relative flex min-h-[calc(100vh-4rem)] flex-col overflow-hidden">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24">
+          <h1 className="max-w-[16ch] text-[40px] leading-[1.04] font-medium tracking-[-0.025em] sm:text-[56px] sm:tracking-[-0.03em] lg:text-[68px]">
+            From checkbox GRC to engineered systems
+          </h1>
+          <p className="mt-5 max-w-xl text-lg leading-7 text-brand-text-muted">
+            GRC Engineering Club is a community for GRC engineers and the people becoming one.
+            Hands-on cloud labs, a private podcast, live Q&amp;A, local chapters and the Training Academy.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3">
+            <CTAButton size="md" onClick={() => go('join')}>Join the Club</CTAButton>
+            <CTAButton variant="secondary" size="md" onClick={() => go('academy')}>See what you get</CTAButton>
+            <span className="text-sm text-brand-text-dim">$70 a year, or $9.99 a month locked for life</span>
+          </div>
+        </div>
+        <div className="mt-14 flex flex-1 items-end md:mt-[72px]">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <PipelineRun />
           </div>
         </div>
       </section>
 
-      {/* What is GRC Engineering? */}
-      <section style={{ background: '#1A1A1A', padding: '80px 24px' }}>
-        <div style={{ maxWidth: 880, margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ margin: 0, fontSize: 36, fontWeight: 800, letterSpacing: '-.02em', color: '#fff' }}>What is GRC Engineering?</h2>
-          <p style={{ marginTop: 22, fontSize: 17, color: '#A0A0A0', lineHeight: 1.7 }}>
-            GRC engineering is the practice of building automated, scalable systems for governance,
-            risk, and compliance — replacing manual checklists with infrastructure-as-code, cloud-native tools,
-            and continuous monitoring. GRC engineers embed compliance controls directly into technology stacks
-            so organizations stay audit-ready by design, not by heroic last-minute effort.
+      {/* Flagship project */}
+      <section className="bg-brand-dark-alt py-20 md:py-28">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-[1fr_auto] gap-8 items-center">
+            <div>
+              <p className="mb-4 font-mono text-xs text-brand-text-dim">Flagship open-source project</p>
+              <h2 className="text-2xl md:text-4xl font-medium tracking-tight">GRC engineering in Claude Code</h2>
+              <p className="mt-3 font-mono text-sm text-brand-text-muted">GRCEngClub/claude-grc-engineering</p>
+              <p className="mt-4 text-base md:text-lg text-brand-text-muted leading-relaxed">
+                The official open-source GRC toolkit for Claude Code. Pull evidence, crosswalk across 1,468 SCF controls mapped to 249 frameworks, generate prioritized gap reports, and produce OSCAL artifacts.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 shrink-0">
+              <CTAButton size="md">
+                <span className="flex items-center gap-2">Explore the project <Icon name="arrow-right" size={16} /></span>
+              </CTAButton>
+              <CTAButton variant="secondary" size="md">Star on GitHub</CTAButton>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Academy */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-[1fr_auto] gap-8 items-center">
+            <div>
+              <p className="mb-4 font-mono text-xs text-brand-text-dim">Training Academy · two certifications, more coming</p>
+              <h2 className="text-2xl md:text-4xl font-medium tracking-tight">Certifications built by working GRC engineers</h2>
+              <p className="mt-4 text-base md:text-lg text-brand-text-muted leading-relaxed">
+                Earn the CGE-P Practitioner or the CGE-AUD Auditor Specialty credential today, and watch for new credentials taught by guest instructors.
+              </p>
+            </div>
+            <CTAButton size="md" onClick={() => go('academy')}>
+              <span className="flex items-center gap-2">Explore the Academy <Icon name="arrow-right" size={16} /></span>
+            </CTAButton>
+          </div>
+        </div>
+      </section>
+
+      {/* What is GRC engineering? */}
+      <section className="bg-brand-dark-alt py-20 md:py-28">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="mb-4 font-mono text-xs text-brand-text-dim">Definition</p>
+          <h2 className="text-3xl md:text-4xl font-medium tracking-tight">What is GRC engineering?</h2>
+          <p className="mt-6 text-base md:text-lg text-brand-text-muted leading-relaxed max-w-3xl">
+            GRC engineering is the practice of building automated, scalable systems for governance, risk and compliance.
+            It replaces manual checklists and spreadsheets with infrastructure as code, cloud-native tools and continuous
+            monitoring. GRC engineers embed controls directly into the technology stack so organizations stay audit-ready
+            by design, not by heroic last-minute effort.
           </p>
-          <a style={{ marginTop: 24, display: 'inline-flex', gap: 6, color: '#E8650A', fontWeight: 600, cursor: 'pointer' }}>
-            Read the complete GRC Engineering 101 guide →
+          <a className="mt-8 inline-flex items-center gap-2 text-brand-orange hover:text-brand-orange-light font-medium transition-colors duration-150 cursor-pointer">
+            New here? Start with the free GRC Engineering 101 guide <Icon name="arrow-right" size={16} />
           </a>
         </div>
       </section>
 
-      {/* What Members Get */}
-      <section style={{ background: '#1A1A1A', padding: '80px 24px' }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-          <SectionHeading title="What Members Get" subtitle="Everything you need to transition from compliance analyst to GRC engineer." />
-          <div style={{ marginTop: 48, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 24 }}>
-            {[
-              { icon: 'zap', title: 'Engineering Mindset', desc: 'Move from checkbox GRC to building automated systems.' },
-              { icon: 'target', title: 'Clear Career Path', desc: 'Structured roadmap from where you are to where you want to be.' },
-              { icon: 'trending-up', title: 'Real Outcomes', desc: 'Members land roles, build portfolios, and level up consistently.' },
-              { icon: 'shield', title: 'Community & Crew', desc: 'A crew of builders who push each other forward every week.' },
-            ].map(b => (
-              <div key={b.title} style={{ textAlign: 'center', padding: 24 }}>
-                <div style={{ width: 48, height: 48, borderRadius: 9999, background: 'rgba(232,101,10,.10)', color: '#E8650A', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
-                  <Icon name={b.icon} size={24} />
-                </div>
-                <h3 style={{ margin: '0 0 8px', fontSize: 17, fontWeight: 700, color: '#fff' }}>{b.title}</h3>
-                <p style={{ margin: 0, color: '#A0A0A0', fontSize: 13.5 }}>{b.desc}</p>
+      {/* What members get */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading title="What members get" subtitle="Everything you need to move from compliance analyst to GRC engineer." centered={false} />
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8">
+            {HOME_BENEFITS.map((b) => (
+              <div key={b.title}>
+                <div className="text-brand-text-muted mb-3"><Icon name={b.icon} size={20} /></div>
+                <h3 className="text-base font-medium mb-1.5">{b.title}</h3>
+                <p className="text-brand-text-muted text-sm leading-relaxed">{b.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Content Types */}
-      <section style={{ padding: '80px 24px' }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-          <SectionHeading title="What's Inside" subtitle="Six content pillars designed to build your skills, portfolio, and career." />
-          <div style={{ marginTop: 48, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
-            <ContentCard icon="mic" title="Private Podcast" description="Weekly episodes breaking down GRC engineering concepts, career strategies, and industry trends." />
-            <ContentCard icon="message-circle" title="Live Q&A" description="Bi-weekly live sessions where you get direct answers to your toughest GRC questions." />
-            <ContentCard icon="flask-conical" title="Hands-On Labs" description="Build real AWS compliance infrastructure — Config rules, Lambda automation, dashboards." />
-            <ContentCard icon="users" title="Mock Interviews" description="Practice with real GRC interview scenarios and get actionable feedback on your resume." />
-            <ContentCard icon="book-open" title="Playbooks" description="Step-by-step guides for LinkedIn branding, portfolio building, and career positioning." />
-            <ContentCard icon="monitor-play" title="Live Builder Sessions" description="Members build real projects together — deploying infra, automating pipelines, learning by doing." />
+      {/* What's inside */}
+      <section className="bg-brand-dark-alt py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading title="What's inside" subtitle="Six pillars for your skills, portfolio and career." centered={false} />
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {HOME_CONTENT_TYPES.map((ct) => (
+              <ContentCard key={ct.title} icon={ct.icon} title={ct.title} description={ct.desc} />
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Member Wins */}
-      <section style={{ background: '#1A1A1A', padding: '80px 24px' }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
-          <SectionHeading title="Member Wins" subtitle="Real people. Real results. Real career transformations." />
-          <div style={{ marginTop: 48, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
-            <StoryCard quote="The club membership has been the biggest ROI I've ever had. Like, this is absolutely insane, seeing everything that's happened since I got wind of the club last Fall." name="Dex Copeland" title="GRC Engineering Club Member" />
-            <StoryCard quote="I landed my first GRC role as GRC Program Analyst at Compyl. THE WORK WORKS. Put in the reps, stay consistent, and the results show up — I'm living proof." name="James Robinson (J-R)" title="GRC Program Analyst at Compyl  - Jan 13, 2026" />
-            <StoryCard quote="A founder of a security company tagged his CISO on my NIST to AWS mapping project. Then the CISO reached out to me directly." name="Luigi Carpio" title="NIST to AWS Mapping Project Recognized by a CISO" />
+      {/* Member wins */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading title="Member wins" subtitle="Real people, real roles." centered={false} />
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <StoryCard quote="The club membership has been the biggest ROI I've ever had. Seeing everything that's happened since I got wind of the club last fall is wild." name="Dex Copeland" title="GRC Engineering Club member" />
+            <StoryCard quote="I landed my first GRC role as GRC Program Analyst at Compyl. The work works. Put in the reps, stay consistent, and the results show up." name="James Robinson (J-R)" title="GRC Program Analyst at Compyl" />
+            <StoryCard quote="A founder of a security company tagged his CISO on my NIST to AWS mapping project. Then the CISO reached out to me directly." name="Luigi Carpio" title="NIST to AWS mapping project recognized by a CISO" />
           </div>
-          <div style={{ marginTop: 36, textAlign: 'center' }}>
-            <a onClick={() => go('stories')} style={{ color: '#E8650A', fontWeight: 600, cursor: 'pointer' }}>See all member stories →</a>
+          <div className="mt-10 text-center">
+            <a onClick={() => go('stories')} className="inline-flex items-center gap-2 text-brand-orange hover:text-brand-orange-light font-medium transition-colors duration-150 cursor-pointer">
+              See all member stories <Icon name="arrow-right" size={18} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Popular on YouTube */}
+      <section className="bg-brand-dark-alt py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading title="Popular on YouTube" subtitle="Free videos on GRC engineering, careers and compliance automation." centered={false} />
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {HOME_VIDEOS.map((v) => (
+              <a key={v.id} className="group relative rounded-xl overflow-hidden border border-brand-gray-light hover:border-brand-text-dim/40 transition-colors duration-150 cursor-pointer">
+                <div className="relative">
+                  <img src={`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`} alt="" className="w-full aspect-video object-cover" />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+                    <div className="w-12 h-12 rounded-full bg-brand-orange text-brand-dark flex items-center justify-center">
+                      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 ml-0.5"><path d="M8 5v14l11-7z" /></svg>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3 bg-brand-gray">
+                  <span className="inline-block text-xs text-brand-text-dim bg-brand-gray-light/40 px-2 py-0.5 rounded mb-2 font-mono">{v.type}</span>
+                  <p className="text-sm font-medium line-clamp-2">{v.title}</p>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section style={{ padding: '96px 24px', textAlign: 'center' }}>
-        <h2 style={{ margin: 0, fontSize: 'clamp(28px, 4vw, 56px)', fontWeight: 900, letterSpacing: '-.02em', color: '#fff' }}>Ready to Build?</h2>
-        <p style={{ marginTop: 16, fontSize: 19, color: '#A0A0A0', maxWidth: 600, margin: '16px auto 36px' }}>
-          Clear path forward and a crew to build it with. Stop scrolling, start engineering.
-        </p>
-        <CTAButton size="lg" onClick={() => go('join')}>Join the Club</CTAButton>
+      <section className="py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="mb-4 font-mono text-xs text-brand-text-dim">Membership</p>
+          <h2 className="text-3xl md:text-5xl font-medium tracking-tight">Ready to build?</h2>
+          <p className="mt-4 text-lg text-brand-text-muted max-w-2xl">
+            A clear path forward and a crew to build it with. Stop scrolling, start engineering.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3">
+            <CTAButton size="md" onClick={() => go('join')}>Join annual, $70 a year</CTAButton>
+            <CTAButton variant="secondary" size="md" onClick={() => go('join')}>Join monthly, $9.99</CTAButton>
+          </div>
+          <p className="mt-4 text-sm text-brand-text-dim max-w-2xl">
+            Annual saves $50. The monthly price is locked for life, cancel anytime.
+          </p>
+        </div>
       </section>
     </div>
   );

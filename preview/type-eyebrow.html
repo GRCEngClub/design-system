@@ -1,14 +1,24 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Meta and tags</title><link rel="stylesheet" href="../colors_and_type.css">
 <style>
-  body { margin:0; padding: 24px; background: var(--bg-page); display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
-  .chip { display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--fg-accent); background:rgba(232,101,10,.10); padding: 6px 12px; border-radius:9999px; }
-  .chip.outline { background:transparent; border:1px solid var(--fg-accent); }
-  .chip.solid { background:var(--fg-accent); color:#fff; }
+  body { margin:0; padding: 20px 24px; background: var(--bg-page); display:grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .stack { display:flex; flex-direction:column; gap: 10px; }
+  .lbl { margin-bottom: 4px; }
+  .tags { display:flex; gap: 8px; flex-wrap:wrap; align-items:center; }
+  .inline { font-size: 14px; color: var(--fg-1); display:flex; align-items:center; gap: 10px; }
+  .crumb { display:flex; align-items:center; gap: 8px; }
 </style></head><body>
-<span class="chip">Most Popular</span>
-<span class="chip">Launching April 2026</span>
-<span class="chip outline">Recommended</span>
-<span class="chip solid">Live</span>
-<span class="chip">Short</span>
-<span class="chip">Full Episode</span>
+<div class="stack">
+  <span class="meta lbl">Meta · JetBrains Mono 12px, meta color, sentence case</span>
+  <span class="meta">Flagship open-source project</span>
+  <span class="meta">Training Academy · two certifications, more coming</span>
+  <span class="meta">compliance-pipeline · run 412 · main</span>
+  <span class="meta">Clip · 12 min</span>
+</div>
+<div class="stack">
+  <span class="meta lbl">Tags · mono 11px, 4px radius, raised surface</span>
+  <div class="tags"><span class="tag">AC-2</span><span class="tag">CM-6</span><span class="tag">D4</span></div>
+  <div class="inline"><span class="tag">SC-7</span>No public ingress on 0.0.0.0/0</div>
+  <div class="crumb"><span class="tag">CGE-P</span><span class="meta">Certified GRC Engineer, Practitioner</span></div>
+  <span class="meta" style="margin-top:4px">Only where a control, domain or code is named. Never a pill, never uppercase.</span>
+</div>
 </body></html>

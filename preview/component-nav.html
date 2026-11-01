@@ -1,22 +1,50 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Navigation</title><link rel="stylesheet" href="../colors_and_type.css">
 <style>
   body { margin:0; padding: 0; background: var(--bg-page); }
-  .banner { background: #f97316; color:#fff; padding: 8px 16px; display:flex; justify-content:center; align-items:center; gap:10px; font-size: 12px; }
-  .banner b { text-transform: uppercase; letter-spacing: .08em; font-size: 11px; }
-  .nav { background: rgba(13,13,13,.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(58,58,58,.5); padding: 12px 20px; display:flex; align-items:center; justify-content:space-between; }
-  .brand { display:flex; align-items:center; gap:10px; }
-  .brand img { width:32px; height:32px; border-radius:8px; }
-  .brand span { color:#fff; font-weight:700; font-size: 14px; }
-  .links { display:flex; gap:18px; align-items:center; }
-  .links a { color: var(--fg-3); font-size: 12.5px; font-weight: 500; text-decoration:none; }
-  .links a.cta { background: var(--grc-orange); color:#fff; padding: 8px 14px; border-radius:8px; font-weight:700; }
+  .nav { background: var(--bg-page); border-bottom: 1px solid var(--border-subtle); padding: 0 24px; height: 64px; display:flex; align-items:center; justify-content:space-between; }
+  .brand { display:flex; align-items:center; gap:12px; }
+  .brand img { width:40px; height:40px; border-radius:8px; display:block; }
+  .brand span { color: var(--fg-1); font-weight:500; font-size: 18px; }
+  .links { display:flex; gap:24px; align-items:center; }
+  .links a { color: var(--fg-2); font-size: 14px; font-weight: 500; text-decoration:none; display:inline-flex; align-items:center; gap: 4px; }
+  .links a.on { color: var(--grc-orange); }
+  .links svg { width: 14px; height: 14px; }
+  .product { background: var(--bg-page); border-bottom: 1px solid var(--border-subtle); padding: 0 24px; height: 56px; display:flex; align-items:center; gap: 24px; margin-top: 16px; }
+  .product .brand img { width: 32px; height: 32px; border-radius: 6px; }
+  .product .brand span { font-size: 14px; }
+  .tabs { display:flex; gap: 2px; }
+  .tabs a { height: 32px; padding: 0 10px; border-radius: 8px; display:inline-flex; align-items:center; gap: 8px; color: var(--fg-2); font-size: 14px; font-weight: 500; text-decoration:none; }
+  .tabs a.on { background: var(--bg-raised); color: var(--fg-1); }
+  .tabs i { width: 16px; height: 16px; stroke-width: 1.5; }
+  .right { margin-left:auto; display:flex; align-items:center; gap: 16px; }
+  .tier { display:flex; align-items:center; gap: 8px; font-size: 12px; font-weight: 500; color: var(--fg-2); }
+  .tier i { width: 8px; height: 8px; border-radius: 9999px; background: var(--grc-orange); box-shadow: 0 0 0 4px rgba(232,101,10,.2); display:block; }
+  .avatar { width: 32px; height: 32px; border-radius: 9999px; background: var(--bg-raised); border: 1px solid var(--border-default); display:inline-flex; align-items:center; justify-content:center; font-size: 13px; font-weight: 500; color: var(--fg-2); }
+  .cap { padding: 8px 24px 0; }
 </style></head><body>
-<div class="banner"><b>Member Reviews</b><span style="opacity:.6">|</span><span>"This community shows up every time" — Princess Okoro</span></div>
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 <div class="nav">
   <div class="brand"><img src="../assets/logo.jpeg" alt=""><span>GRC Engineering Club</span></div>
   <div class="links">
-    <a>Academy</a><a>Learn ▾</a><a>Community ▾</a><a>About ▾</a><a>Merch</a>
-    <a class="cta">Join the Club</a>
+    <a>Academy</a><a class="on">Events</a>
+    <a>Learn <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+    <a>Community <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+    <a>Pricing</a>
+    <button class="btn btn-primary btn-sm">Join the Club</button>
   </div>
 </div>
+<div class="cap meta">Website · solid page surface, hairline, 64px. Active item is the one orange word.</div>
+<div class="product">
+  <div class="brand"><img src="../assets/logo.jpeg" alt=""><span>GRC Eng Academy</span></div>
+  <div class="tabs">
+    <a class="on"><i data-lucide="layout-dashboard"></i>Dashboard</a>
+    <a><i data-lucide="book-open"></i>Course</a>
+    <a><i data-lucide="flask-conical"></i>Labs</a>
+    <a><i data-lucide="clipboard-check"></i>Exam</a>
+    <a><i data-lucide="wrench"></i>Tools</a>
+  </div>
+  <div class="right"><span class="tier"><i></i>Builder tier</span><span class="avatar">GE</span></div>
+</div>
+<div class="cap meta">Academy · 56px bar, 32px tabs, active tab is a raised surface step.</div>
+<script>lucide.createIcons();</script>
 </body></html>

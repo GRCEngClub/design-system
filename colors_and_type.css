@@ -1,64 +1,76 @@
 /* =========================================================================
    GRC Engineering Club — Colors & Type Tokens
-   Source: grcengclub.com codebase (src/index.css @theme block)
-   Font: Inter (Google Fonts) — weights 400/500/600/700/800/900
+   Source: grcengclub.com (src/index.css) and cert.grcengclub.com
+   (cert-platform/frontend/tailwind.config.js), as of the 2026-11-01 unslop pass.
+   Fonts: Inter 400/500 (600 for rare emphasis) + JetBrains Mono 400/500 for
+   meta, tags and figures.
    ========================================================================= */
 
-/* Local Inter (vendored in ./fonts/). Use these for offline / deck exports.
-   Falls through to Google Fonts @import below if the local path can't be resolved. */
+/* Local fonts (vendored in ./fonts/). Use these for offline / deck exports.
+   Falls through to the Google Fonts @import below if the local path can't be resolved. */
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('./fonts/inter-400.woff2') format('woff2'); }
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('./fonts/inter-500.woff2') format('woff2'); }
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('./fonts/inter-600.woff2') format('woff2'); }
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('./fonts/inter-700.woff2') format('woff2'); }
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 800; font-display: swap; src: url('./fonts/inter-800.woff2') format('woff2'); }
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 900; font-display: swap; src: url('./fonts/inter-900.woff2') format('woff2'); }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('./fonts/jetbrains-mono-400.woff2') format('woff2'); }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('./fonts/jetbrains-mono-500.woff2') format('woff2'); }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
   /* ---------- Brand colors ---------- */
-  --grc-orange:        #E8650A;   /* primary brand */
-  --grc-orange-light:  #FF8533;   /* hover, accents */
-  --grc-orange-dark:   #C45200;   /* pressed, deeper accent */
+  --grc-orange:        #E8650A;   /* the one accent: primary action, selection, the figure that matters */
+  --grc-orange-light:  #FF8533;   /* hover on the primary button; orange TEXT on dark surfaces */
+  --grc-orange-dark:   #C45200;   /* orange text on white (slides, print) */
 
-  /* Neutral surface scale (dark-first) */
-  --grc-dark:          #0D0D0D;   /* page background */
-  --grc-dark-alt:      #1A1A1A;   /* alternating section bg */
-  --grc-gray:          #2A2A2A;   /* card surface */
-  --grc-gray-light:    #3A3A3A;   /* card border, dividers */
+  /* Neutral surface scale (dark-first): one graphite ramp with a faint warm tint */
+  --grc-dark:          #111110;   /* page background */
+  --grc-dark-alt:      #161514;   /* alternating section bg */
+  --grc-gray:          #1C1B19;   /* card surface */
+  --grc-gray-light:    #2B2925;   /* raised surface, hairlines, chips */
 
-  /* Foreground / text */
-  --grc-text:          #F5F5F5;   /* default text on dark */
-  --grc-text-muted:    #A0A0A0;   /* secondary / body */
-  --grc-white:         #FFFFFF;   /* high-emphasis text, button labels */
+  /* Foreground / text: three roles */
+  --grc-text:          #EFE9DE;   /* primary */
+  --grc-text-muted:    #AAA398;   /* secondary */
+  --grc-text-dim:      #8A847A;   /* meta, captions, icons */
+  --grc-white:         #FFFFFF;   /* legacy; interface text uses --grc-text, not pure white */
 
   /* Semantic foreground tokens */
-  --fg-1: var(--grc-white);
-  --fg-2: var(--grc-text);
-  --fg-3: var(--grc-text-muted);
-  --fg-accent: var(--grc-orange);
+  --fg-1: var(--grc-text);
+  --fg-2: var(--grc-text-muted);
+  --fg-3: var(--grc-text-dim);
+  --fg-accent: var(--grc-orange);            /* fills: the button, the status dot, the bar */
+  --fg-accent-text: var(--grc-orange-light); /* orange words and figures on a dark surface */
+  --fg-ok: #4CC38A;                          /* a passing check; the only non-brand hue */
 
   /* Semantic surface tokens */
   --bg-page:    var(--grc-dark);
   --bg-section: var(--grc-dark-alt);
   --bg-card:    var(--grc-gray);
-  --bg-tint:    color-mix(in oklch, var(--grc-orange) 10%, transparent);
+  --bg-raised:  var(--grc-gray-light);
+  --bg-tint:    color-mix(in oklch, var(--grc-gray-light) 40%, transparent); /* neutral chip, never an orange tint */
 
   /* Borders */
   --border-default: var(--grc-gray-light);
-  --border-accent:  var(--grc-orange);
+  --border-hover:   color-mix(in oklch, var(--grc-text-dim) 40%, transparent); /* the quiet hover step */
+  --border-accent:  var(--grc-orange);       /* rare: the selected item */
   --border-subtle:  color-mix(in oklch, var(--grc-gray-light) 50%, transparent);
 
-  /* Radii — codebase uses rounded-lg / rounded-xl / rounded-full */
+  /* Radii — tags 4, buttons 8, cards 12, panels 16; nested = outer minus padding */
+  --radius-xs: 4px;    /* control-ID tags */
   --radius-sm: 6px;
   --radius-md: 8px;    /* buttons (rounded-lg) */
   --radius-lg: 12px;   /* cards (rounded-xl) */
-  --radius-pill: 9999px;
+  --radius-xl: 16px;   /* panels, the hero product view (rounded-2xl) */
+  --radius-pill: 9999px; /* avatars and status dots only; text never sits in a pill */
 
-  /* Shadows — soft black + warm orange glow on CTAs */
-  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.3);
-  --shadow-cta:  0 8px 24px rgba(232, 101, 10, 0.25);
-  --shadow-cta-hover: 0 12px 32px rgba(232, 101, 10, 0.35);
+  /* Shadows — none on surfaces. Depth is surface steps + hairlines. */
+  --shadow-card: none;
+  --shadow-cta:  none;
+  --shadow-cta-hover: none;
+  --shadow-menu: 0 8px 24px rgba(0, 0, 0, 0.4); /* the one exception: a floating menu */
 
   /* Spacing scale — tailwind-aligned */
   --space-1: 4px;
@@ -76,10 +88,11 @@
 
   /* ---------- Typography ---------- */
   --font-sans: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   /* Type scale (px @ 16px base) */
-  --text-xs:   12px;
+  --text-2xs:  11px;   /* tags */
+  --text-xs:   12px;   /* meta */
   --text-sm:   14px;
   --text-base: 16px;
   --text-lg:   18px;
@@ -91,7 +104,8 @@
   --text-6xl:  60px;
   --text-7xl:  72px;
 
-  /* Weights — codebase favours 700/800/900 for display, 500/600 for nav/labels */
+  /* Weights — 400 and 500 only; 600 for rare emphasis. Heavier weights are vendored for
+     legacy decks but the interface never uses them (retired 2026-11-01). */
   --weight-regular: 400;
   --weight-medium:  500;
   --weight-semibold: 600;
@@ -105,11 +119,51 @@
   --leading-normal: 1.5;
   --leading-relaxed: 1.65;
 
-  /* Tracking */
+  /* Tracking — negative only on display sizes, never on small text */
+  --tracking-display: -0.03em;
   --tracking-tight: -0.02em;
   --tracking-normal: 0;
   --tracking-wider: 0.05em;
   --tracking-widest: 0.1em;
+
+  /* Motion — one curve, one duration, color-only transitions */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration: 150ms;
+}
+
+/* =========================================================================
+   Light mode — white-background surfaces (slides, print, handouts)
+   Opt in with <html class="grc-light"> or [data-theme="light"]. Same orange,
+   inverted neutrals. Orange-dark carries small orange text so it meets AA on white.
+   ========================================================================= */
+.grc-light,
+[data-theme="light"] {
+  --grc-light-page:    #FFFFFF;   /* page background */
+  --grc-light-alt:     #F5F5F5;   /* alternating section bg, cards on white */
+  --grc-light-card:    #FFFFFF;   /* cards on the alt section */
+  --grc-light-raised:  #EDEDED;   /* raised surface, chips, tags */
+  --grc-light-border:  #E5E5E5;   /* card border, dividers */
+  --grc-light-text:    #171717;   /* headings, high-emphasis */
+  --grc-light-muted:   #525252;   /* body / secondary (4.5:1+ on white) */
+  --grc-light-meta:    #737373;   /* meta, captions, icons */
+  --grc-light-tint:    var(--grc-light-raised); /* legacy name; chips are neutral now, never an orange tint */
+
+  --fg-1: var(--grc-light-text);
+  --fg-2: var(--grc-light-muted);
+  --fg-3: var(--grc-light-meta);
+  --fg-accent: var(--grc-orange);
+  --fg-accent-text: var(--grc-orange-dark);  /* small orange text (eyebrows, labels, figures) */
+
+  --bg-page:    var(--grc-light-page);
+  --bg-section: var(--grc-light-alt);
+  --bg-card:    var(--grc-light-alt);
+  --bg-raised:  var(--grc-light-raised);
+  --bg-tint:    var(--grc-light-raised);
+
+  --border-default: var(--grc-light-border);
+  --border-hover:   #CFCFCF;
+  --border-subtle:  var(--grc-light-border);
+  --shadow-menu: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 /* =========================================================================
@@ -127,15 +181,16 @@ html, body {
 .h-display,
 h1.grc {
   font-family: var(--font-sans);
-  font-weight: var(--weight-black);          /* font-black */
-  font-size: clamp(40px, 6vw, var(--text-7xl));
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-tight);
+  font-weight: var(--weight-medium);         /* 500; hierarchy from size, not weight */
+  font-size: clamp(40px, 6vw, 68px);
+  line-height: 1.04;
+  letter-spacing: var(--tracking-display);
   color: var(--fg-1);
+  max-width: 16ch;
 }
 
 .h1, h1 {
-  font-weight: var(--weight-black);
+  font-weight: var(--weight-medium);
   font-size: clamp(32px, 4.5vw, var(--text-6xl));
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
@@ -143,7 +198,7 @@ h1.grc {
 }
 
 .h2, h2 {
-  font-weight: var(--weight-extrabold);      /* font-extrabold */
+  font-weight: var(--weight-medium);         /* 500 */
   font-size: clamp(28px, 3.5vw, var(--text-5xl));
   line-height: var(--leading-snug);
   letter-spacing: var(--tracking-tight);
@@ -151,38 +206,42 @@ h1.grc {
 }
 
 .h3, h3 {
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-medium);
   font-size: var(--text-xl);
   line-height: var(--leading-snug);
   color: var(--fg-1);
 }
 
 .h4, h4 {
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-medium);
   font-size: var(--text-lg);
   color: var(--fg-1);
 }
 
-.eyebrow {
-  /* uppercase orange micro-label seen on Academy hero, footers, post chips */
-  font-weight: var(--weight-bold);
+/* Eyebrow = meta: small mono text in the meta color, sentence case.
+   Uppercase tracked labels retired 2026-11-01. */
+.eyebrow,
+.meta {
+  font-family: var(--font-mono);
   font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wider);
-  color: var(--fg-accent);
+  font-weight: var(--weight-regular);
+  line-height: 16px;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--fg-3);
 }
 
 .lede,
 p.grc-lede {
   font-size: clamp(18px, 1.75vw, var(--text-2xl));
   line-height: var(--leading-relaxed);
-  color: var(--fg-3);
+  color: var(--fg-2);
 }
 
 p, .body {
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
-  color: var(--fg-3);
+  color: var(--fg-2);
 }
 
 small, .small {
@@ -193,16 +252,105 @@ small, .small {
 .code, code, kbd, pre {
   font-family: var(--font-mono);
   font-size: 0.95em;
-  background: color-mix(in oklch, var(--grc-orange) 10%, transparent);
-  color: var(--fg-accent);
+  background: var(--bg-raised);
+  color: var(--fg-1);
   padding: 0.1em 0.4em;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs);
 }
 
 a.brand-link {
-  color: var(--fg-accent);
-  font-weight: var(--weight-semibold);
+  color: var(--fg-accent-text);
+  font-weight: var(--weight-medium);
   text-decoration: none;
-  transition: color 200ms ease;
+  transition: color var(--duration) var(--ease);
 }
-a.brand-link:hover { color: var(--grc-orange-light); }
+a.brand-link:hover { color: var(--fg-1); }
+
+/* =========================================================================
+   Shared utilities — used by preview/ cards and ui_kits/. Mirror the
+   production recipes in CTAButton.tsx, ContentCard.tsx and PipelineRun.tsx.
+   ========================================================================= */
+
+/* Control-ID tag: the signature detail. AC-2, CM-6, D4. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-raised);
+  color: var(--fg-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  line-height: 16px;
+  white-space: nowrap;
+  text-transform: none;
+}
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* A hairline is the only divider. */
+.hairline { border: 1px solid var(--border-default); }
+.hairline-t { border-top: 1px solid var(--border-default); }
+.hairline-b { border-bottom: 1px solid var(--border-default); }
+
+/* Card recipe: bg-brand-gray + border-brand-gray-light + rounded-xl + p-6,
+   hover is a quiet border step. */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: border-color var(--duration) var(--ease), background-color var(--duration) var(--ease);
+}
+.card:hover,
+.card.is-hover { border-color: var(--border-hover); }
+
+/* Buttons: 44 to 48px in heroes, 32 to 36 in navigation. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--duration) var(--ease), border-color var(--duration) var(--ease), color var(--duration) var(--ease), transform 120ms var(--ease);
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary {
+  background: var(--grc-orange);
+  color: var(--grc-dark);            /* dark text on orange, 5.6:1 */
+  box-shadow: none;
+}
+.btn-primary:hover { background: var(--grc-orange-light); }
+.btn-secondary {
+  background: var(--bg-raised);
+  color: var(--fg-1);
+  border-color: var(--border-default);
+}
+.btn-secondary:hover { border-color: var(--border-hover); }
+.btn-lg { height: 48px; padding: 0 24px; font-size: var(--text-lg); }
+.btn-sm { height: 36px; padding: 0 14px; font-size: var(--text-sm); }
+.btn-xs { height: 32px; padding: 0 10px; font-size: var(--text-sm); }
+
+/* Quiet text link: orange words, no underline, arrow optional. */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--fg-accent-text);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  transition: color var(--duration) var(--ease);
+}
+.link:hover { color: var(--fg-1); }

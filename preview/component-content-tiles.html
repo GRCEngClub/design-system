@@ -1,23 +1,23 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Content tiles</title><link rel="stylesheet" href="../colors_and_type.css">
 <style>
   body { margin:0; padding: 18px; background: var(--bg-page); display:flex; gap:14px; align-items:flex-start; }
-  .pill { display:inline-flex; align-items:center; padding: 4px 10px; border-radius:6px; font-size:11px; font-weight:700; background: rgba(232,101,10,.10); color: var(--fg-accent); text-transform: uppercase; letter-spacing: .07em; }
-  .post { background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; padding: 16px; max-width: 320px; }
-  .post h4 { margin: 8px 0 6px; color: #fff; font-size: 14px; font-weight: 700; }
-  .post p { margin: 0; color: var(--fg-3); font-size: 12px; line-height: 1.5; }
-  .youtube { background: var(--grc-gray); border: 1px solid var(--border-default); border-radius: 12px; overflow: hidden; max-width: 240px; }
-  .youtube .thumb { aspect-ratio: 16/9; background: linear-gradient(135deg, #2a2a2a, #1a1a1a); display:flex; align-items:center; justify-content:center; }
-  .play { width:42px; height:42px; border-radius:9999px; background: var(--grc-orange); display:flex; align-items:center; justify-content:center; color:#fff; font-size:14px; }
-  .youtube .meta { padding: 10px; }
-  .youtube .meta p { margin: 6px 0 0; color:#fff; font-size: 12px; font-weight: 600; line-height: 1.4; }
+  .post { max-width: 320px; }
+  .post h4 { margin: 10px 0 6px; font-size: 16px; }
+  .post p { margin: 0; font-size: 14px; line-height: 1.5; }
+  .youtube { background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 12px; overflow: hidden; max-width: 260px; }
+  .youtube .thumb { aspect-ratio: 16/9; background: var(--bg-raised); display:flex; align-items:center; justify-content:center; position: relative; }
+  .play { width:48px; height:48px; border-radius:9999px; background: var(--grc-orange); color: var(--grc-dark); display:flex; align-items:center; justify-content:center; }
+  .play svg { width: 20px; height: 20px; margin-left: 2px; }
+  .youtube .body { padding: 12px; }
+  .youtube .body p { margin: 8px 0 0; color: var(--fg-1); font-size: 14px; font-weight: 500; line-height: 1.4; }
 </style></head><body>
-<div class="post">
-  <span class="pill">Lab</span>
-  <h4>Build an Automated Compliance Dashboard with AWS Config</h4>
-  <p>Hands-on lab: deploy real-time compliance monitoring using AWS Config, Lambda, and CloudWatch.</p>
+<div class="card post">
+  <span class="tag">Lab</span>
+  <h4>Build an automated compliance dashboard with AWS Config</h4>
+  <p>Deploy real-time compliance monitoring using AWS Config, Lambda and CloudWatch.</p>
 </div>
 <div class="youtube">
-  <div class="thumb"><div class="play">▶</div></div>
-  <div class="meta"><span class="pill">Short</span><p>Compliance-as-Code: FedRAMP 20X Disrupts GRC</p></div>
+  <div class="thumb"><div class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div></div>
+  <div class="body"><span class="tag">Clip</span><p>GRC engineer salary: $70K to $330K+ (2026 data)</p></div>
 </div>
 </body></html>
